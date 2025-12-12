@@ -84,36 +84,148 @@ const CHANGELOGS = [
     }
 ];
 
-// Regelwerk (HTML-Format - kann beliebig erweitert werden)
+// Regelwerk (DEIN KOMPLETTES REGELWERK)
 const REGELWERK_HTML = `
-<h3>1. Allgemeine Regeln</h3>
+<h3>📗 GamingLife RP – Ingame Regelwerk</h3>
+
+<h4>1. Grundprinzipien</h4>
 <ul>
-    <li>Respektvoller Umgang mit allen Spielern ist Pflicht</li>
-    <li>Keine rassistischen, sexistischen oder beleidigenden Äußerungen</li>
-    <li>Cheats oder Exploits führen zu sofortigem Bann</li>
-    <li>Kein Spamming in Chat oder Voice</li>
+    <li>Hardcore-RP bedeutet: Maximale Realistik, konsequentes Verhalten, permanente Charakterbindung.</li>
+    <li>Dein Charakter ist eine eigenständige Person.</li>
+    <li>Alles Ingame hat Konsequenzen.</li>
+    <li>Realistisches Verhalten ist Pflicht.</li>
+    <li>Out-of-Character Handlungen Ingame sind verboten.</li>
 </ul>
 
-<h3>2. Rollenspiel-Regeln</h3>
+<h4>2. Charakter & Verhalten</h4>
+
+<h5>2.1 Charakterführung</h5>
 <ul>
-    <li>Ernsthaftes und realistisches Rollenspiel</li>
-    <li>Kein Powergaming (unerlaubte Vorteilsbeschaffung)</li>
-    <li>Kein Metagaming (Nutzung von Wissen das die Figur nicht haben kann)</li>
-    <li>Konsistentes Charakterspiel</li>
+    <li>Charaktere müssen logisch, glaubwürdig und konsistent gespielt werden.</li>
+    <li>Persönlichkeiten dürfen sich entwickeln, aber nicht unrealistisch ändern.</li>
+    <li>Random-Aggressivität, Troll-Verhalten oder sinnlose Aktionen sind verboten.</li>
+    <li>Aufgaben des Charakters müssen ernsthaft ausgeführt werden.</li>
 </ul>
 
-<h3>3. Voice-Chat Regeln</h3>
+<h5>2.2 Kommunikation</h5>
 <ul>
-    <li>Voice-Chat nur für Rollenspielzwecke</li>
-    <li>Störgeräusche vermeiden (Push-to-Talk empfohlen)</li>
-    <li>Keine Musik oder Audio-Abspielungen</li>
-    <li>Respektvolle Kommunikation</li>
+    <li>Ingame wird nur Ingame gesprochen – OOC nur im dafür vorgesehenen Bereich.</li>
+    <li>Voice & Text müssen zur Situation passen (Tonlage, Ernsthaftigkeit, Emotionen).</li>
+    <li>Keine Meta-Kommentare ("Bruder, ich bugge", "Admin?", "Das ist unfair").</li>
+    <li>Schreien, Lachen oder Weinen muss realistisch gespielt werden.</li>
 </ul>
 
-<h3>4. Fraktionen und Ränge</h3>
+<h4>3. Realismus & Immersion</h4>
+
+<h5>3.1 Schmerzen & Verletzungen</h5>
 <ul>
-    <li>Ränge innerhalb von Fraktionen respektieren</li>
-    <li>Beförderungen durch verdientes Spiel</li>
-    <li>Fraktionsspezifische Regeln beachten</li>
+    <li>Verletzungen müssen ausgespielt werden.</li>
+    <li>Schüsse, Stiche, Schläge → realistische Auswirkungen.</li>
+    <li>Keine Superheldenkräfte, kein Wegrennen mit tödlichen Wunden.</li>
+</ul>
+
+<h5>3.2 Angst- & Risikoverhalten</h5>
+<ul>
+    <li>Charaktere haben Angst – niemand ist unbesiegbar.</li>
+    <li>Bei Überzahl, Waffengewalt oder Lebensgefahr → reagieren wie ein echter Mensch.</li>
+    <li>Selbstmord-, Kamikaze- oder Real-Life-gefährdende Aktionen sind verboten.</li>
+</ul>
+
+<h4>4. Fairplay</h4>
+
+<h5>4.1 Power-RP (Verboten)</h5>
+<ul>
+    <li>Handlungen, die anderen etwas aufzwingen, ohne Chance zu reagieren:</li>
+    <li>„Ich knebel dich" ohne Reaktionsmöglichkeit</li>
+    <li>Zwangsaktionen ohne Ausspielbarkeit</li>
+</ul>
+
+<h5>4.2 Meta-RP (Verboten)</h5>
+<ul>
+    <li>Wissen nutzen, das der Charakter nicht besitzen kann</li>
+    <li>Informationen aus Stream, Discord, Logs, o. Ä. ingame verwenden</li>
+</ul>
+
+<h5>4.3 Fail-RP (Verboten)</h5>
+<ul>
+    <li>Unrealistische Fahrzeugeinsätze</li>
+    <li>Sinnlose Kriminalität ohne Motiv</li>
+    <li>Random-Abziehen ohne Grund</li>
+    <li>Polizeiflucht ohne realistische Chancen</li>
+</ul>
+
+<h4>5. Crime & Criminal RP</h4>
+
+<h5>5.1 Kriminelle Aktionen</h5>
+<ul>
+    <li>Müssen geplant, logisch und motiviert sein</li>
+    <li>Keine "Random Kidnappings" ohne Grund</li>
+    <li>Jeder Crime hat realistische Risiken</li>
+    <li>Ausspielen nach Misserfolg ist Pflicht (Festnahme, Verletzungen, Trauma)</li>
+</ul>
+
+<h5>5.2 Geiselnahmen / Überfälle</h5>
+<ul>
+    <li>Nur mit Rolle & Motivation</li>
+    <li>Geiseln müssen realistisch behandelt werden</li>
+    <li>Kein Missbrauch von OOC-Situationen (z. B. Disconnects)</li>
+</ul>
+
+<h4>6. Polizei & Staatsfraktionen</h4>
+
+<h5>6.1 Pflichten</h5>
+<ul>
+    <li>Gesetze müssen realistisch angewandt werden</li>
+    <li>Kein übertriebener Waffeneinsatz</li>
+    <li>Priorisierung von Deeskalation</li>
+    <li>Dienstmoral & Rolle wahren (kein Streit innerhalb des Dienstes, keine Korruption außer IC abgesprochen)</li>
+</ul>
+
+<h5>6.2 Rechte</h5>
+<ul>
+    <li>Nutzung polizeilicher Mittel nur mit IC-Begründung</li>
+    <li>Durchsuchungen & Festnahmen müssen ausgespielt werden</li>
+</ul>
+
+<h4>7. Gewalt & Eskalation</h4>
+
+<h5>7.1 Eskalationsstufen</h5>
+<ul>
+    <li>Konflikte müssen steigerbar bleiben:</li>
+    <li>Verbale Auseinandersetzung</li>
+    <li>Drohung</li>
+    <li>Körperliche Eskalation</li>
+    <li>Waffen</li>
+    <li>Lebensbedrohliche Gewalt (nur im extremen Ausnahmefall)</li>
+</ul>
+
+<h5>7.2 Tötungen</h5>
+<ul>
+    <li>Nur wenn es absolut logisch ist</li>
+    <li>Keine Zufallstötungen</li>
+    <li>Jede Tötung hat langfristige Konsequenzen</li>
+</ul>
+
+<h4>8. Fahrzeuge & Verkehr</h4>
+<ul>
+    <li>Fahrzeugverhalten realitätsnah (kein Driften im 50er Bereich usw.)</li>
+    <li>Unfälle müssen ausgespielt werden</li>
+    <li>Fluchten nur bei glaubwürdigem Vorteil</li>
+    <li>Fahrzeuge sind kein Spielzeug – sondern Wertgegenstände</li>
+</ul>
+
+<h4>9. Taschenspielereien & Bugs</h4>
+<ul>
+    <li>Jede Nutzung von Bugs, Exploits oder Glitches ist strengstens verboten</li>
+    <li>Ausversehene Bugs sofort melden</li>
+    <li>Bugnutzen im RP → harter Server-Bann</li>
+</ul>
+
+<h4>10. Out-of-Character</h4>
+<ul>
+    <li>OOC ist streng limitiert</li>
+    <li>Kein OOC-Geschrei</li>
+    <li>Kein OOC im Voice</li>
+    <li>Kein Bruch der Immersion</li>
 </ul>
 `;
