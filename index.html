@@ -80,6 +80,12 @@
             backdrop-filter: blur(10px);
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        header.hidden {
+            transform: translateY(-100%);
         }
 
         nav {
@@ -258,10 +264,18 @@
             transition: all 0.3s ease;
             position: relative;
             display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .section-title:hover {
-            transform: scale(1.05);
+            transform: scale(1.05) translateY(0);
             letter-spacing: 1px;
         }
 
@@ -299,6 +313,14 @@
             transform: translateZ(0);
             overflow: hidden;
             position: relative;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .feature-card::before {
@@ -318,7 +340,7 @@
         }
 
         .feature-card:hover {
-            transform: translateY(-15px) scale(1.05);
+            transform: translateY(-15px) scale(1.05) translateY(0);
             box-shadow: var(--shadow);
             border-color: rgba(138, 43, 226, 0.3);
             background-color: rgba(138, 43, 226, 0.1);
@@ -449,11 +471,19 @@
             border-radius: 10px;
             border-left: 4px solid var(--accent1);
             transition: var(--transition);
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .team-member.visible {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .team-member:hover {
             background-color: rgba(138, 43, 226, 0.1);
-            transform: translateX(10px) scale(1.02);
+            transform: translateX(10px) scale(1.02) translateX(0);
             border-left-color: #4169e1;
             box-shadow: 0 10px 20px rgba(138, 43, 226, 0.2);
         }
@@ -510,11 +540,19 @@
             padding: 20px;
             border-left: 4px solid var(--accent2);
             transition: var(--transition);
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .changelog-item.visible {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .changelog-item:hover {
             background-color: rgba(138, 43, 226, 0.1);
-            transform: translateX(10px);
+            transform: translateX(10px) translateX(0);
             box-shadow: 0 10px 20px rgba(138, 43, 226, 0.2);
         }
 
@@ -791,6 +829,14 @@
             padding: 60px 0 30px;
             margin-top: 80px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        footer.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .footer-content {
@@ -896,6 +942,18 @@
             color: var(--text-primary);
         }
 
+        /* ===== SCROLL ANIMATIONS ===== */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .nav-links {
@@ -987,7 +1045,7 @@
 </head>
 <body>
     <!-- Header -->
-    <header>
+    <header id="main-header">
         <div class="container">
             <nav>
                 <a href="#home" class="logo" id="siteName">Gaming Life</a>
@@ -1016,7 +1074,7 @@
     <!-- Features Section -->
     <section class="features" id="features">
         <div class="container">
-            <h2 class="section-title fade-in">Server Features</h2>
+            <h2 class="section-title scroll-animate" id="featuresTitle">Server Features</h2>
             <div class="features-grid" id="featuresContainer">
                 <!-- Wird aus config.js geladen -->
             </div>
@@ -1102,7 +1160,7 @@
     </div>
 
     <!-- Footer -->
-    <footer>
+    <footer id="main-footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
@@ -1179,7 +1237,7 @@
                 
                 SERVER_FEATURES.forEach((feature, index) => {
                     const card = document.createElement('div');
-                    card.className = 'feature-card fade-in';
+                    card.className = 'feature-card scroll-animate';
                     card.innerHTML = `
                         <div class="feature-icon">
                             <i class="fas ${feature.icon}"></i>
@@ -1189,19 +1247,17 @@
                     `;
                     container.appendChild(card);
                     
-                    setTimeout(() => {
-                        card.style.transitionDelay = `${index * 0.1}s`;
-                        card.classList.add('visible');
-                    }, 100);
+                    // Set delay for each card
+                    card.style.transitionDelay = `${index * 0.1}s`;
                 });
             }
             
-            // 3. Team laden
+            // 3. Team laden (für Modal)
             if (TEAM_MITGLIEDER) {
                 const container = document.getElementById('teamContainer');
                 container.innerHTML = '';
                 
-                TEAM_MITGLIEDER.forEach(member => {
+                TEAM_MITGLIEDER.forEach((member, index) => {
                     const div = document.createElement('div');
                     div.className = 'team-member';
                     div.innerHTML = `
@@ -1214,17 +1270,20 @@
                         </div>
                     `;
                     container.appendChild(div);
+                    
+                    // Set delay for animation when modal opens
+                    div.style.transitionDelay = `${index * 0.05}s`;
                 });
             }
             
-            // 4. Changelogs laden
+            // 4. Changelogs laden (für Modal)
             if (CHANGELOGS) {
                 const container = document.getElementById('changelogsContainer');
                 container.innerHTML = '';
                 
                 const sorted = [...CHANGELOGS].sort((a, b) => b.id - a.id);
                 
-                sorted.forEach(changelog => {
+                sorted.forEach((changelog, index) => {
                     const div = document.createElement('div');
                     div.className = 'changelog-item';
                     div.innerHTML = `
@@ -1237,6 +1296,9 @@
                         </div>
                     `;
                     container.appendChild(div);
+                    
+                    // Set delay for animation when modal opens
+                    div.style.transitionDelay = `${index * 0.05}s`;
                 });
             }
             
@@ -1252,10 +1314,13 @@
             // 7. Animationen initialisieren
             initAnimations();
             
-            // 8. Hash-based Navigation
+            // 8. Scroll Animationen initialisieren
+            initScrollAnimations();
+            
+            // 9. Hash-based Navigation
             handleHashNavigation();
             
-            // 9. Feedback Formular
+            // 10. Feedback Formular
             setupFeedbackForm();
             
             console.log('✅ Seite vollständig initialisiert!');
@@ -1270,6 +1335,7 @@
             document.getElementById('footerText').textContent = '© 2023 Gaming Life RP Server';
             
             initAnimations();
+            initScrollAnimations();
         }
         
         // ===== DISCORD LINK SETUP =====
@@ -1295,17 +1361,84 @@
             }
         }
         
-        // ===== ANIMATIONEN INITIALISIEREN =====
-        function initAnimations() {
+        // ===== SCROLL ANIMATIONEN =====
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
+                        
+                        // Wenn Features Section sichtbar wird, animiere alle Cards
+                        if (entry.target.id === 'features') {
+                            const cards = entry.target.querySelectorAll('.feature-card');
+                            cards.forEach((card, index) => {
+                                setTimeout(() => {
+                                    card.classList.add('visible');
+                                }, index * 150); // Verzögerung zwischen den Cards
+                            });
+                            
+                            // Animieren des Titels
+                            const title = entry.target.querySelector('.section-title');
+                            if (title) {
+                                setTimeout(() => {
+                                    title.classList.add('visible');
+                                }, 100);
+                            }
+                        }
+                        
+                        // Wenn Footer sichtbar wird
+                        if (entry.target.id === 'main-footer') {
+                            setTimeout(() => {
+                                entry.target.classList.add('visible');
+                            }, 300);
+                        }
                     }
                 });
-            }, { threshold: 0.1 });
+            }, observerOptions);
             
-            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+            // Beobachte die Sections
+            document.querySelectorAll('.scroll-animate, #features, #main-footer').forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Header hide/show on scroll
+            let lastScrollTop = 0;
+            const header = document.getElementById('main-header');
+            
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (scrollTop > lastScrollTop && scrollTop > 100) {
+                    // Scroll down - hide header
+                    header.classList.add('hidden');
+                } else {
+                    // Scroll up - show header
+                    header.classList.remove('hidden');
+                }
+                
+                lastScrollTop = scrollTop;
+            });
+        }
+        
+        // ===== MODAL ANIMATIONEN =====
+        function animateModalItems(modalId) {
+            const modal = document.getElementById(modalId);
+            if (!modal) return;
+            
+            // Warte bis Modal vollständig geöffnet ist
+            setTimeout(() => {
+                const items = modal.querySelectorAll('.team-member, .changelog-item');
+                items.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add('visible');
+                    }, index * 50); // Noch schnellere Animation für Modals
+                });
+            }, 300);
         }
         
         // ===== MODAL FUNKTIONEN =====
@@ -1315,6 +1448,9 @@
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
                 window.location.hash = modalId;
+                
+                // Starte Animationen für Modal-Inhalte
+                animateModalItems(modalId);
             }
         }
         
@@ -1326,6 +1462,12 @@
                 if (window.location.hash === `#${modalId}`) {
                     window.location.hash = '';
                 }
+                
+                // Reset animation state
+                const items = modal.querySelectorAll('.team-member, .changelog-item');
+                items.forEach(item => {
+                    item.classList.remove('visible');
+                });
             }
         }
         
@@ -1508,6 +1650,19 @@
                 el.classList.add('glow-on-hover');
             });
         }, 500);
+        
+        // ===== INIT ANIMATIONS (alte Methode für Hero) =====
+        function initAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        }
     </script>
 </body>
 </html>
