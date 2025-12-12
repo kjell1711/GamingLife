@@ -269,7 +269,7 @@
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .section-title.visible {
+        .section-title.revealed {
             opacity: 1;
             transform: translateY(0);
         }
@@ -318,7 +318,7 @@
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .feature-card.visible {
+        .feature-card.revealed {
             opacity: 1;
             transform: translateY(0);
         }
@@ -476,7 +476,7 @@
             transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .team-member.visible {
+        .team-member.revealed {
             opacity: 1;
             transform: translateX(0);
         }
@@ -545,7 +545,7 @@
             transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .changelog-item.visible {
+        .changelog-item.revealed {
             opacity: 1;
             transform: translateX(0);
         }
@@ -834,7 +834,7 @@
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        footer.visible {
+        footer.revealed {
             opacity: 1;
             transform: translateY(0);
         }
@@ -943,13 +943,13 @@
         }
 
         /* ===== SCROLL ANIMATIONS ===== */
-        .scroll-animate {
+        .scroll-reveal {
             opacity: 0;
             transform: translateY(40px);
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .scroll-animate.visible {
+        .scroll-reveal.revealed {
             opacity: 1;
             transform: translateY(0);
         }
@@ -994,7 +994,7 @@
             transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
-        .fade-in.visible {
+        .fade-in.revealed {
             opacity: 1;
             transform: translateY(0);
         }
@@ -1074,7 +1074,7 @@
     <!-- Features Section -->
     <section class="features" id="features">
         <div class="container">
-            <h2 class="section-title scroll-animate" id="featuresTitle">Server Features</h2>
+            <h2 class="section-title scroll-reveal" id="featuresTitle">Server Features</h2>
             <div class="features-grid" id="featuresContainer">
                 <!-- Wird aus config.js geladen -->
             </div>
@@ -1237,7 +1237,7 @@
                 
                 SERVER_FEATURES.forEach((feature, index) => {
                     const card = document.createElement('div');
-                    card.className = 'feature-card scroll-animate';
+                    card.className = 'feature-card scroll-reveal';
                     card.innerHTML = `
                         <div class="feature-icon">
                             <i class="fas ${feature.icon}"></i>
@@ -1370,39 +1370,62 @@
             
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
+                    // WENN ELEMENT IM VIEWPORT IST
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+                        entry.target.classList.add('revealed');
                         
-                        // Wenn Features Section sichtbar wird, animiere alle Cards
+                        // Features Section Animation
                         if (entry.target.id === 'features') {
                             const cards = entry.target.querySelectorAll('.feature-card');
                             cards.forEach((card, index) => {
                                 setTimeout(() => {
-                                    card.classList.add('visible');
-                                }, index * 150); // Verzögerung zwischen den Cards
+                                    card.classList.add('revealed');
+                                }, index * 150); // Staggered delay
                             });
                             
-                            // Animieren des Titels
+                            // Animiere den Titel
                             const title = entry.target.querySelector('.section-title');
                             if (title) {
                                 setTimeout(() => {
-                                    title.classList.add('visible');
+                                    title.classList.add('revealed');
                                 }, 100);
                             }
                         }
                         
-                        // Wenn Footer sichtbar wird
+                        // Footer Animation
                         if (entry.target.id === 'main-footer') {
                             setTimeout(() => {
-                                entry.target.classList.add('visible');
+                                entry.target.classList.add('revealed');
                             }, 300);
+                        }
+                    } 
+                    // WENN ELEMENT AUSSERHALB DES VIEWPORTS IST
+                    else {
+                        entry.target.classList.remove('revealed');
+                        
+                        // Features Cards auch zurücksetzen
+                        if (entry.target.id === 'features') {
+                            const cards = entry.target.querySelectorAll('.feature-card');
+                            cards.forEach(card => {
+                                card.classList.remove('revealed');
+                            });
+                            
+                            const title = entry.target.querySelector('.section-title');
+                            if (title) {
+                                title.classList.remove('revealed');
+                            }
+                        }
+                        
+                        // Footer zurücksetzen
+                        if (entry.target.id === 'main-footer') {
+                            entry.target.classList.remove('revealed');
                         }
                     }
                 });
             }, observerOptions);
             
-            // Beobachte die Sections
-            document.querySelectorAll('.scroll-animate, #features, #main-footer').forEach(section => {
+            // Beobachte alle animierbaren Elemente
+            document.querySelectorAll('.scroll-reveal, .section-title, #features, #main-footer').forEach(section => {
                 observer.observe(section);
             });
             
@@ -1430,13 +1453,18 @@
             const modal = document.getElementById(modalId);
             if (!modal) return;
             
+            // Reset alle Animationen zuerst
+            const items = modal.querySelectorAll('.team-member, .changelog-item');
+            items.forEach(item => {
+                item.classList.remove('revealed');
+            });
+            
             // Warte bis Modal vollständig geöffnet ist
             setTimeout(() => {
-                const items = modal.querySelectorAll('.team-member, .changelog-item');
                 items.forEach((item, index) => {
                     setTimeout(() => {
-                        item.classList.add('visible');
-                    }, index * 50); // Noch schnellere Animation für Modals
+                        item.classList.add('revealed');
+                    }, index * 50); // Staggered animation
                 });
             }, 300);
         }
@@ -1462,12 +1490,6 @@
                 if (window.location.hash === `#${modalId}`) {
                     window.location.hash = '';
                 }
-                
-                // Reset animation state
-                const items = modal.querySelectorAll('.team-member, .changelog-item');
-                items.forEach(item => {
-                    item.classList.remove('visible');
-                });
             }
         }
         
@@ -1651,15 +1673,20 @@
             });
         }, 500);
         
-        // ===== INIT ANIMATIONS (alte Methode für Hero) =====
+        // ===== INIT ANIMATIONS (für Hero) =====
         function initAnimations() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+                        entry.target.classList.add('revealed');
+                    } else {
+                        entry.target.classList.remove('revealed');
                     }
                 });
-            }, { threshold: 0.1 });
+            }, { 
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
             
             document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
         }
