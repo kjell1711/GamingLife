@@ -23,12 +23,12 @@ const EXTERNAL_LINKS = {
 
 // Team Mitglieder Liste
 const TEAM_MITGLIEDER = [
-    { name: 'Max Mustermann', rang: 'Server-Inhaber' },
-    { name: 'Lisa Beispiel', rang: 'Head-Admin' },
-    { name: 'Tom Test', rang: 'Admin' },
-    { name: 'Anna Admin', rang: 'Admin' },
-    { name: 'Paul Moderator', rang: 'Moderator' },
-    { name: 'Sarah Supporter', rang: 'Supporter' }
+    { name: 'GL Dalex', rang: 'Projektinhaber' },
+    { name: 'GL Henri', rang: 'Stv.Projektinhaber' },
+    { name: 'GL Raffa', rang: 'Projektleitung' },
+    { name: 'GL Almin', rang: 'Stv.Projektleitung' },
+    { name: 'GL Happycat', rang: 'Head of Direktion' },
+    { name: 'GL Kjell (joke)', rang: 'Roblox Admin' }
 ];
 
 // Server Features
