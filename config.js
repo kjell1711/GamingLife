@@ -52,40 +52,30 @@ const TEAM_MITGLIEDER = [
     { name: 'GL Raffa', rang: 'Projektleitung' },
     
     // Stv. Projektleitung
-    { name: 'GL Almin', rang: 'Stv. Projektleitung' },
+
     
     // Head of Direktion
-    { name: 'GL Happycat', rang: 'Head of Direktion' },
+    { name: 'GL Happycat', rang: 'Stv,Projektinhaber' },
     
     // Direktor
-    { name: 'GL Leon', rang: 'Direktor' },
+
     
     // Teamleitung
-    { name: 'GL TL OG_Tayson', rang: 'Teamleitung' },
+
     
     // Manager
     { name: 'GL Anwalt', rang: 'Manager' },
     
     // Senior Administrator
-    { name: 'GL Dominic', rang: 'Senior Administrator' },
-    { name: 'GL Joel (Herr Oleke)', rang: 'Senior Administrator' },
+
     
     // Administrator
-    { name: 'GL Max', rang: 'Administrator' },
     
     // Junior Moderator
-    { name: 'GL frd_le0n', rang: 'Junior Moderator' },
-    { name: 'GL Simi', rang: 'Junior Moderator' },
     //
     //
     // Test Moderator
-    { name: 'GL Azadi', rang: 'Test Moderator' },
-    { name: 'GL Gennaro', rang: 'Test Moderator' },
-    { name: 'GL Marcbappe', rang: 'Test Moderator' },
-    { name: 'GL Lulu', rang: 'Test Moderator' },
-    { name: 'GL Leon🎄', rang: 'Test Moderator' },
-    { name: 'GL Jamie', rang: 'Test Moderator' },
-    { name: 'GL Ruzo', rang: 'Test Moderator' }
+    { name: 'GL Jamie', rang: 'Test Moderator' }
 ];
 
 
