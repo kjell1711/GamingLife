@@ -47,7 +47,22 @@
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
-            background: radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.1) 0%, transparent 40%);
+            min-height: 100vh;
+        }
+
+        /* ===== DUNKLER HINTERGRUND MIT SUBTILEN EFFEKTEN ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(65, 105, 225, 0.05) 0%, transparent 50%),
+                linear-gradient(to bottom, var(--primary), #0c0c14);
+            z-index: -1;
         }
 
         .container {
@@ -120,6 +135,17 @@
             position: relative;
         }
 
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(138, 43, 226, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
         .hero h1 {
             font-size: 4rem;
             font-weight: 800;
@@ -158,11 +184,28 @@
             transition: var(--transition);
             text-decoration: none;
             box-shadow: 0 5px 20px rgba(138, 43, 226, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
         }
 
         .cta-button:hover {
             transform: translateY(-5px) scale(1.05);
             box-shadow: 0 10px 30px rgba(138, 43, 226, 0.4);
+        }
+
+        .cta-button:hover::after {
+            left: 100%;
         }
 
         /* ===== FEATURES SECTION ===== */
@@ -175,6 +218,7 @@
             text-align: center;
             margin-bottom: 60px;
             font-weight: 700;
+            color: var(--text-primary);
         }
 
         .features-grid {
@@ -184,7 +228,8 @@
         }
 
         .feature-card {
-            background-color: var(--card-bg);
+            background-color: rgba(26, 26, 36, 0.8);
+            backdrop-filter: blur(10px);
             border-radius: var(--border-radius);
             padding: 35px 30px;
             transition: var(--transition);
@@ -197,6 +242,7 @@
             transform: translateY(-15px) scale(1.05);
             box-shadow: var(--shadow);
             border-color: rgba(138, 43, 226, 0.3);
+            background-color: rgba(37, 37, 51, 0.8);
         }
 
         .feature-icon {
@@ -216,6 +262,7 @@
         .feature-card h3 {
             font-size: 1.5rem;
             margin-bottom: 15px;
+            color: var(--text-primary);
         }
 
         .feature-card p {
@@ -262,6 +309,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             transform: translateY(20px);
             transition: transform 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
         .modal.active .modal-content {
@@ -272,7 +320,7 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            background: none;
+            background: rgba(255, 255, 255, 0.1);
             border: none;
             color: var(--text-secondary);
             font-size: 1.5rem;
@@ -288,7 +336,7 @@
 
         .close-modal:hover {
             color: var(--text-primary);
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
         /* Team Modal */
@@ -327,6 +375,7 @@
         .team-member-name {
             font-weight: 600;
             font-size: 1.1rem;
+            color: var(--text-primary);
         }
 
         .team-member-rang {
@@ -365,6 +414,7 @@
         .changelog-title {
             font-weight: 600;
             font-size: 1.2rem;
+            color: var(--text-primary);
         }
 
         .changelog-date {
@@ -431,6 +481,7 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
+            color: var(--text-secondary);
         }
 
         .form-control {
@@ -449,6 +500,7 @@
             outline: none;
             border-color: var(--accent1);
             background-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.1);
         }
 
         textarea.form-control {
@@ -468,11 +520,28 @@
             cursor: pointer;
             transition: var(--transition);
             margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
         }
 
         .btn-submit:hover:not(:disabled) {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+        }
+
+        .btn-submit:hover:not(:disabled)::after {
+            left: 100%;
         }
 
         .btn-submit:disabled {
@@ -658,6 +727,10 @@
         .modal-content::-webkit-scrollbar-track {
             background: var(--card-bg);
         }
+        
+        .modal-content::-webkit-scrollbar-thumb {
+            background: var(--gradient);
+        }
     </style>
 </head>
 <body>
@@ -810,11 +883,15 @@
     <!-- JavaScript -->
     <script>
         // ===== KONFIGURATION AUS config.js LADEN =====
-        // Alle Daten kommen aus der config.js Datei!
-
-        // ===== INITIALISIERUNG =====
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Seite wird geladen...');
+            
+            // Prüfe ob config.js geladen wurde
+            if (typeof PAGE_CONFIG === 'undefined') {
+                console.error('config.js wurde nicht gefunden oder konnte nicht geladen werden!');
+                alert('Fehler: config.js Datei fehlt oder ist nicht korrekt!');
+                return;
+            }
             
             // 1. Seiteninformationen setzen
             setPageInfo();
@@ -850,20 +927,18 @@
         
         // 1. Seiteninformationen setzen
         function setPageInfo() {
-            if (typeof PAGE_CONFIG !== 'undefined') {
-                document.getElementById('siteName').textContent = PAGE_CONFIG.siteName;
-                document.getElementById('mainTitle').textContent = PAGE_CONFIG.siteName;
-                document.getElementById('siteTagline').textContent = PAGE_CONFIG.siteTagline;
-                document.getElementById('footerText').textContent = PAGE_CONFIG.footerText;
-                document.title = PAGE_CONFIG.siteName + ' - RP Server auf Roblox';
-            }
+            document.getElementById('siteName').textContent = PAGE_CONFIG.siteName;
+            document.getElementById('mainTitle').textContent = PAGE_CONFIG.siteName;
+            document.getElementById('siteTagline').textContent = PAGE_CONFIG.siteTagline;
+            document.getElementById('footerText').textContent = PAGE_CONFIG.footerText;
+            document.title = PAGE_CONFIG.siteName + ' - RP Server auf Roblox';
         }
         
         // 2. Features laden
         function loadFeatures() {
             const container = document.getElementById('featuresContainer');
-            if (!container || typeof SERVER_FEATURES === 'undefined') {
-                console.error('Features Container nicht gefunden oder keine Features definiert!');
+            if (!container) {
+                console.error('Features Container nicht gefunden!');
                 return;
             }
             
@@ -891,10 +966,7 @@
         // 3. Team laden
         function loadTeam() {
             const container = document.getElementById('teamContainer');
-            if (!container || typeof TEAM_MITGLIEDER === 'undefined') {
-                console.error('Team Container nicht gefunden oder keine Team-Mitglieder definiert!');
-                return;
-            }
+            if (!container) return;
             
             container.innerHTML = '';
             TEAM_MITGLIEDER.forEach(member => {
@@ -916,10 +988,7 @@
         // 4. Changelogs laden
         function loadChangelogs() {
             const container = document.getElementById('changelogsContainer');
-            if (!container || typeof CHANGELOGS === 'undefined') {
-                console.error('Changelogs Container nicht gefunden oder keine Changelogs definiert!');
-                return;
-            }
+            if (!container) return;
             
             container.innerHTML = '';
             // Sortieren nach ID (höchste zuerst)
@@ -944,27 +1013,25 @@
         // 5. Regelwerk laden
         function loadRegelwerk() {
             const container = document.getElementById('regelwerkContainer');
-            if (!container || typeof REGELWERK_HTML === 'undefined') {
-                console.error('Regelwerk Container nicht gefunden oder kein Regelwerk definiert!');
-                return;
-            }
+            if (!container) return;
             
             container.innerHTML = REGELWERK_HTML;
         }
 
         // 6. Discord Link setzen
         function setupDiscordLink() {
-            if (typeof DISCORD_INVITE_URL !== 'undefined' && DISCORD_INVITE_URL !== 'https://discord.gg/DEIN_LINK_HIER') {
-                document.getElementById('discordButton').href = DISCORD_INVITE_URL;
-                document.getElementById('discordButton').onclick = function(e) {
-                    e.preventDefault();
-                    window.open(DISCORD_INVITE_URL, '_blank');
-                };
+            if (DISCORD_INVITE_URL && DISCORD_INVITE_URL !== 'https://discord.gg/DEIN_LINK_HIER') {
+                const discordButton = document.getElementById('discordButton');
+                if (discordButton) {
+                    discordButton.onclick = function(e) {
+                        e.preventDefault();
+                        window.open(DISCORD_INVITE_URL, '_blank');
+                    };
+                }
                 
                 // Footer Discord Link
                 const footerDiscord = document.querySelector('.social-links a[title="Discord"]');
                 if (footerDiscord) {
-                    footerDiscord.href = DISCORD_INVITE_URL;
                     footerDiscord.onclick = function(e) {
                         e.preventDefault();
                         window.open(DISCORD_INVITE_URL, '_blank');
@@ -992,11 +1059,7 @@
             if (modal) {
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
-                
-                // URL Hash setzen für Deep Linking
                 window.location.hash = modalId;
-                
-                // Navigation aktualisieren
                 updateNavigation(modalId);
             }
         }
@@ -1006,8 +1069,6 @@
             if (modal) {
                 modal.classList.remove('active');
                 document.body.style.overflow = 'auto';
-                
-                // URL Hash entfernen
                 if (window.location.hash === `#${modalId}`) {
                     window.location.hash = '';
                 }
@@ -1015,7 +1076,6 @@
         }
 
         function updateNavigation(modalId) {
-            // Aktive Navigation anpassen
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.classList.remove('active');
             });
@@ -1037,7 +1097,7 @@
 
         // ===== DISCORD FUNKTION =====
         function openDiscord() {
-            if (typeof DISCORD_INVITE_URL !== 'undefined' && DISCORD_INVITE_URL !== 'https://discord.gg/DEIN_LINK_HIER') {
+            if (DISCORD_INVITE_URL && DISCORD_INVITE_URL !== 'https://discord.gg/DEIN_LINK_HIER') {
                 window.open(DISCORD_INVITE_URL, '_blank');
             } else {
                 alert('Bitte Discord Link in config.js konfigurieren!');
@@ -1051,7 +1111,6 @@
             
             form.addEventListener('submit', submitFeedback);
             
-            // Cooldown System
             let cooldownEnd = localStorage.getItem('feedbackCooldown');
             let cooldownInterval;
 
@@ -1076,7 +1135,6 @@
                 document.getElementById('submitBtn').disabled = true;
             }
 
-            // Cooldown checken
             if (cooldownEnd) {
                 cooldownEnd = parseInt(cooldownEnd);
                 updateCooldown();
@@ -1097,15 +1155,12 @@
                 return;
             }
             
-            // Button deaktivieren
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Wird gesendet...';
             
-            // Webhook senden (falls konfiguriert)
-            if (typeof DISCORD_WEBHOOK_URL !== 'undefined' && DISCORD_WEBHOOK_URL !== 'DEINE_DISCORD_WEBHOOK_URL_HIER') {
+            if (DISCORD_WEBHOOK_URL && DISCORD_WEBHOOK_URL !== 'DEINE_DISCORD_WEBHOOK_URL_HIER') {
                 sendToDiscordWebhook(username, message);
             } else {
-                // Fallback: Simuliere Erfolg
                 setTimeout(() => {
                     handleFeedbackSuccess();
                 }, 1500);
@@ -1115,8 +1170,7 @@
         function sendToDiscordWebhook(username, message) {
             const payload = {
                 content: `**Neues Feedback von ${username}**\n\n${message}`,
-                username: 'Gaming Life Feedback',
-                avatar_url: 'https://cdn.discordapp.com/embed/avatars/0.png'
+                username: 'Gaming Life Feedback'
             };
             
             fetch(DISCORD_WEBHOOK_URL, {
@@ -1142,11 +1196,9 @@
             showStatus('Vielen Dank! Dein Feedback wurde gesendet.', 'success');
             document.getElementById('feedbackForm').reset();
             
-            // Cooldown setzen (5 Minuten)
             const cooldownEnd = Date.now() + 5 * 60 * 1000;
             localStorage.setItem('feedbackCooldown', cooldownEnd.toString());
             
-            // Cooldown UI aktualisieren
             const cooldownInterval = setInterval(() => {
                 const now = Date.now();
                 const timeLeft = Math.max(0, cooldownEnd - now);
@@ -1166,13 +1218,10 @@
                 document.getElementById('submitBtn').disabled = true;
             }, 1000);
             
-            // Button zurücksetzen
             document.getElementById('submitBtn').innerHTML = '<i class="fas fa-paper-plane"></i> Feedback senden';
             
-            // Modal nach 2 Sekunden schließen
             setTimeout(() => {
                 closeModal('feedbackModal');
-                // Reset nach Modal schließen
                 setTimeout(() => {
                     const formStatus = document.getElementById('formStatus');
                     if (formStatus) {
@@ -1190,17 +1239,14 @@
         }
 
         // ===== GLOBAL EVENTS =====
-        // Schließe Modal mit Escape
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                const modals = document.querySelectorAll('.modal.active');
-                modals.forEach(modal => {
+                document.querySelectorAll('.modal.active').forEach(modal => {
                     closeModal(modal.id);
                 });
             }
         });
 
-        // Schließe Modal bei Klick außerhalb
         document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
@@ -1209,22 +1255,7 @@
             });
         });
 
-        // Hash Change Listener
         window.addEventListener('hashchange', handleHashNavigation);
-        
-        // Navigation Links aktualisieren
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            if (!link.onclick) {
-                link.addEventListener('click', function(e) {
-                    if (this.getAttribute('href') === '#home') {
-                        e.preventDefault();
-                        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-                        this.classList.add('active');
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }
-                });
-            }
-        });
     </script>
 </body>
 </html>
