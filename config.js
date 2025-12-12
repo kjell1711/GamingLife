@@ -13,7 +13,7 @@ const DISCORD_INVITE_URL = 'https://discord.gg/DHrEuJteyq';
 const PAGE_CONFIG = {
     siteName: 'Gaming Life',
     siteTagline: 'Der beste Notruf-Emden-Server mit Voice-Chat',
-    footerText: '© 2023 Gaming Life RP Server. Alle Rechte vorbehalten. Roblox ist eine eingetragene Marke von Roblox Corporation.'
+    footerText: '© 2023 Gaming Life RP Server. Alle Rechte vorbehalten. Website Erstellt vonn Kjell177.'
 };
 
 // Server Features
