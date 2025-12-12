@@ -4,10 +4,10 @@
 // =========================
 
 // Discord Webhook URL für Feedback
-const DISCORD_WEBHOOK_URL = 'DEINE_DISCORD_WEBHOOK_URL_HIER';
+const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1449056405800616049/xVkMQraJYoBvF102zR1DE2pX5gdlR6Z415j9nmu3MbfhM6aFTsqdf62Mi9-FraIhN_6i';
 
 // Discord Server Einladungslink
-const DISCORD_INVITE_URL = 'https://discord.gg/DEIN_LINK_HIER';
+const DISCORD_INVITE_URL = 'https://discord.gg/DHrEuJteyq';
 
 // Seiten-Konfiguration
 const PAGE_CONFIG = {
