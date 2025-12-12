@@ -901,70 +901,81 @@
 
     <!-- JavaScript -->
     <script>
-        // ===== KONFIGURATION AUS config.js LADEN =====
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Seite wird geladen...');
+        // ===== LADE KONFIGURATION AUS config.js =====
+        function loadConfig() {
+            // Diese Funktion wird aufgerufen, wenn config.js geladen wurde
+            console.log('Konfiguration geladen:', PAGE_CONFIG);
             
-            // Prüfe ob config.js geladen wurde
-            if (typeof PAGE_CONFIG === 'undefined') {
-                console.error('config.js wurde nicht gefunden oder konnte nicht geladen werden!');
-                alert('Fehler: config.js Datei fehlt oder ist nicht korrekt! Stelle sicher, dass config.js im gleichen Ordner liegt.');
-                return;
+            // Prüfe ob alle Konfigurationen vorhanden sind
+            if (!PAGE_CONFIG || !SERVER_FEATURES || !TEAM_MITGLIEDER || !CHANGELOGS || !REGELWERK_HTML) {
+                console.error('Fehler: Nicht alle Konfigurationen gefunden!');
+                return false;
             }
             
-            console.log('Config gefunden:', PAGE_CONFIG);
+            return true;
+        }
+
+        // ===== INITIALISIERUNG =====
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM geladen, starte Initialisierung...');
             
-            // 1. Seiteninformationen setzen
-            setPageInfo();
-            
-            // 2. Features laden
-            loadFeatures();
-            
-            // 3. Team laden
-            loadTeam();
-            
-            // 4. Changelogs laden
-            loadChangelogs();
-            
-            // 5. Regelwerk laden
-            loadRegelwerk();
-            
-            // 6. Discord Link setzen
-            setupDiscordLink();
-            
-            // 7. Animationen initialisieren
-            initAnimations();
-            
-            // 8. Hash-based Navigation
-            handleHashNavigation();
-            
-            // 9. Feedback Formular
-            setupFeedbackForm();
-            
-            console.log('Seite erfolgreich geladen!');
+            // Warte kurz, damit config.js geladen wird
+            setTimeout(() => {
+                if (!loadConfig()) {
+                    console.error('Konfiguration konnte nicht geladen werden!');
+                    return;
+                }
+                
+                // 1. Seiteninformationen setzen
+                setPageInfo();
+                
+                // 2. Features laden
+                loadFeatures();
+                
+                // 3. Team laden
+                loadTeam();
+                
+                // 4. Changelogs laden
+                loadChangelogs();
+                
+                // 5. Regelwerk laden
+                loadRegelwerk();
+                
+                // 6. Discord Link setzen
+                setupDiscordLink();
+                
+                // 7. Animationen initialisieren
+                initAnimations();
+                
+                // 8. Hash-based Navigation
+                handleHashNavigation();
+                
+                // 9. Feedback Formular
+                setupFeedbackForm();
+                
+                console.log('✅ Webseite vollständig geladen!');
+                console.log('Team-Mitglieder:', TEAM_MITGLIEDER.length);
+                console.log('Regelwerk Länge:', REGELWERK_HTML.length);
+            }, 100);
         });
 
         // ===== FUNKTIONEN =====
         
         // 1. Seiteninformationen setzen
         function setPageInfo() {
-            console.log('Setze Seiteninfo:', PAGE_CONFIG);
-            document.getElementById('siteName').textContent = PAGE_CONFIG.siteName;
-            document.getElementById('mainTitle').textContent = PAGE_CONFIG.siteName;
-            document.getElementById('siteTagline').textContent = PAGE_CONFIG.siteTagline;
-            document.getElementById('footerText').textContent = PAGE_CONFIG.footerText;
-            document.title = PAGE_CONFIG.siteName + ' - RP Server auf Roblox';
+            if (PAGE_CONFIG) {
+                document.getElementById('siteName').textContent = PAGE_CONFIG.siteName;
+                document.getElementById('mainTitle').textContent = PAGE_CONFIG.siteName;
+                document.getElementById('siteTagline').textContent = PAGE_CONFIG.siteTagline;
+                document.getElementById('footerText').textContent = PAGE_CONFIG.footerText;
+                document.title = PAGE_CONFIG.siteName + ' - RP Server auf Roblox';
+            }
         }
         
         // 2. Features laden
         function loadFeatures() {
             const container = document.getElementById('featuresContainer');
-            if (!container) {
-                console.error('Features Container nicht gefunden!');
-                return;
-            }
-            
-            console.log('Lade Features:', SERVER_FEATURES);
+            if (!container || !SERVER_FEATURES) return;
             
             container.innerHTML = '';
             SERVER_FEATURES.forEach((feature, index) => {
@@ -979,7 +990,6 @@
                 `;
                 container.appendChild(card);
                 
-                // Verzögerte Animation
                 setTimeout(() => {
                     card.style.transitionDelay = `${index * 0.1}s`;
                     card.classList.add('visible');
@@ -990,14 +1000,11 @@
         // 3. Team laden
         function loadTeam() {
             const container = document.getElementById('teamContainer');
-            if (!container) {
-                console.error('Team Container nicht gefunden!');
-                return;
-            }
-            
-            console.log('Lade Team:', TEAM_MITGLIEDER);
+            if (!container || !TEAM_MITGLIEDER) return;
             
             container.innerHTML = '';
+            console.log('Lade Team-Mitglieder:', TEAM_MITGLIEDER);
+            
             TEAM_MITGLIEDER.forEach(member => {
                 const div = document.createElement('div');
                 div.className = 'team-member';
@@ -1017,15 +1024,9 @@
         // 4. Changelogs laden
         function loadChangelogs() {
             const container = document.getElementById('changelogsContainer');
-            if (!container) {
-                console.error('Changelogs Container nicht gefunden!');
-                return;
-            }
-            
-            console.log('Lade Changelogs:', CHANGELOGS);
+            if (!container || !CHANGELOGS) return;
             
             container.innerHTML = '';
-            // Sortieren nach ID (höchste zuerst)
             const sorted = [...CHANGELOGS].sort((a, b) => b.id - a.id);
             
             sorted.forEach(changelog => {
@@ -1047,20 +1048,10 @@
         // 5. Regelwerk laden
         function loadRegelwerk() {
             const container = document.getElementById('regelwerkContainer');
-            if (!container) {
-                console.error('Regelwerk Container nicht gefunden!');
-                return;
-            }
+            if (!container || !REGELWERK_HTML) return;
             
-            console.log('Lade Regelwerk (Länge):', REGELWERK_HTML ? REGELWERK_HTML.length : 0);
-            
-            if (REGELWERK_HTML) {
-                container.innerHTML = REGELWERK_HTML;
-                console.log('Regelwerk erfolgreich geladen!');
-            } else {
-                container.innerHTML = '<p style="color: var(--error);">Regelwerk konnte nicht geladen werden!</p>';
-                console.error('REGELWERK_HTML ist undefined oder leer!');
-            }
+            console.log('Lade Regelwerk...');
+            container.innerHTML = REGELWERK_HTML;
         }
 
         // 6. Discord Link setzen
@@ -1074,7 +1065,6 @@
                     };
                 }
                 
-                // Footer Discord Link
                 const footerDiscord = document.querySelector('.social-links a[title="Discord"]');
                 if (footerDiscord) {
                     footerDiscord.onclick = function(e) {
@@ -1105,7 +1095,6 @@
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
                 window.location.hash = modalId;
-                updateNavigation(modalId);
             }
         }
 
@@ -1117,17 +1106,6 @@
                 if (window.location.hash === `#${modalId}`) {
                     window.location.hash = '';
                 }
-            }
-        }
-
-        function updateNavigation(modalId) {
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            const activeLink = document.querySelector(`.nav-links a[onclick*="${modalId}"]`);
-            if (activeLink) {
-                activeLink.classList.add('active');
             }
         }
 
@@ -1144,8 +1122,6 @@
         function openDiscord() {
             if (DISCORD_INVITE_URL && DISCORD_INVITE_URL !== 'https://discord.gg/DEIN_LINK_HIER') {
                 window.open(DISCORD_INVITE_URL, '_blank');
-            } else {
-                alert('Bitte Discord Link in config.js konfigurieren!');
             }
         }
 
@@ -1193,7 +1169,6 @@
             const username = document.getElementById('username').value || 'Anonym';
             const message = document.getElementById('message').value;
             const submitBtn = document.getElementById('submitBtn');
-            const formStatus = document.getElementById('formStatus');
             
             if (!message.trim()) {
                 showStatus('Bitte gib eine Nachricht ein.', 'error');
