@@ -85,6 +85,12 @@ const TEAM_MITGLIEDER = [
 
 // Changelog Einträge (ID muss immer höher sein für neue Einträge)
 const CHANGELOGS = [
+        { 
+        id: 3,
+        titel: 'Neue Website!', 
+        beschreibung: 'Alle Infos Jetzt direkt auf unserer Website!',
+        datum: '12.12.2025'
+    },
     { 
         id: 3,
         titel: 'Neue Website!', 
