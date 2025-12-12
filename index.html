@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- CONFIG EINBINDEN -->
-<script src="config.js" defer></script>
+    <script src="config.js" defer></script>
     
     <style>
         /* ===== VARIABLEN ===== */
@@ -25,7 +25,7 @@
             --warning: #ffaa00;
             --error: #ff3366;
             --border-radius: 16px;
-            --transition: all 0.3s ease;
+            --transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             --gradient: linear-gradient(135deg, var(--accent1), var(--accent2));
         }
@@ -98,10 +98,13 @@
             color: transparent;
             text-decoration: none;
             transition: var(--transition);
+            position: relative;
+            display: inline-block;
         }
 
         .logo:hover {
             transform: scale(1.05);
+            letter-spacing: 1px;
         }
 
         .nav-links {
@@ -116,12 +119,30 @@
             padding: 10px 15px;
             border-radius: 8px;
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-links a:hover::before {
+            left: 100%;
         }
 
         .nav-links a:hover,
         .nav-links a.active {
             color: var(--text-primary);
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(138, 43, 226, 0.1);
+            transform: translateY(-3px);
         }
 
         /* ===== HERO SECTION ===== */
@@ -155,6 +176,15 @@
             color: transparent;
             margin-bottom: 20px;
             animation: float 3s ease-in-out infinite;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero h1:hover {
+            transform: scale(1.05);
+            letter-spacing: 2px;
+            text-shadow: 0 10px 25px rgba(138, 43, 226, 0.5);
         }
 
         @keyframes float {
@@ -169,6 +199,12 @@
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            transition: all 0.3s ease;
+        }
+
+        .hero p:hover {
+            color: var(--text-primary);
+            transform: translateY(-3px);
         }
 
         .cta-button {
@@ -219,6 +255,31 @@
             margin-bottom: 60px;
             font-weight: 700;
             color: var(--text-primary);
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:hover {
+            transform: scale(1.05);
+            letter-spacing: 1px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .section-title:hover::after {
+            width: 120px;
         }
 
         .features-grid {
@@ -236,13 +297,31 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
             transform: translateZ(0);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(138, 43, 226, 0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: translateX(100%);
         }
 
         .feature-card:hover {
             transform: translateY(-15px) scale(1.05);
             box-shadow: var(--shadow);
             border-color: rgba(138, 43, 226, 0.3);
-            background-color: rgba(37, 37, 51, 0.8);
+            background-color: rgba(138, 43, 226, 0.1);
         }
 
         .feature-icon {
@@ -253,20 +332,32 @@
             background-clip: text;
             color: transparent;
             transition: var(--transition);
+            display: inline-block;
         }
 
         .feature-card:hover .feature-icon {
-            transform: scale(1.2);
+            transform: scale(1.3) rotate(10deg);
         }
 
         .feature-card h3 {
             font-size: 1.5rem;
             margin-bottom: 15px;
             color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover h3 {
+            color: #8a2be2;
+            letter-spacing: 0.5px;
         }
 
         .feature-card p {
             color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover p {
+            color: rgba(255, 255, 255, 0.9);
         }
 
         /* ===== MODALS ===== */
@@ -277,13 +368,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.95);
             z-index: 2000;
             justify-content: center;
             align-items: center;
             padding: 20px;
             opacity: 0;
             transition: opacity 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
         .modal.active {
@@ -336,7 +428,9 @@
 
         .close-modal:hover {
             color: var(--text-primary);
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(138, 43, 226, 0.2);
+            transform: rotate(90deg) scale(1.1);
+            border: 1px solid rgba(138, 43, 226, 0.3);
         }
 
         /* Team Modal */
@@ -358,14 +452,22 @@
         }
 
         .team-member:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-            transform: translateX(5px);
+            background-color: rgba(138, 43, 226, 0.1);
+            transform: translateX(10px) scale(1.02);
+            border-left-color: #4169e1;
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.2);
         }
 
         .team-member-icon {
             font-size: 1.5rem;
             margin-right: 15px;
             color: var(--accent1);
+            transition: var(--transition);
+        }
+
+        .team-member:hover .team-member-icon {
+            transform: rotate(15deg) scale(1.2);
+            color: #4169e1;
         }
 
         .team-member-info {
@@ -376,11 +478,22 @@
             font-weight: 600;
             font-size: 1.1rem;
             color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover .team-member-name {
+            color: #8a2be2;
+            letter-spacing: 0.5px;
         }
 
         .team-member-rang {
             color: var(--accent2);
             font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover .team-member-rang {
+            color: #fff;
         }
 
         /* Changelog Modal */
@@ -400,8 +513,9 @@
         }
 
         .changelog-item:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-            transform: translateX(5px);
+            background-color: rgba(138, 43, 226, 0.1);
+            transform: translateX(10px);
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.2);
         }
 
         .changelog-header {
@@ -415,6 +529,12 @@
             font-weight: 600;
             font-size: 1.2rem;
             color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .changelog-item:hover .changelog-title {
+            color: #8a2be2;
+            letter-spacing: 0.5px;
         }
 
         .changelog-date {
@@ -423,10 +543,22 @@
             background-color: rgba(138, 43, 226, 0.1);
             padding: 5px 10px;
             border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .changelog-item:hover .changelog-date {
+            background-color: rgba(138, 43, 226, 0.2);
+            transform: scale(1.05);
+            color: #fff;
         }
 
         .changelog-description {
             color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .changelog-item:hover .changelog-description {
+            color: rgba(255, 255, 255, 0.9);
         }
 
         /* Regelwerk Modal - Optimiert für lange Texte */
@@ -445,12 +577,25 @@
             font-size: 1.4rem;
             border-bottom: 2px solid rgba(138, 43, 226, 0.2);
             padding-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .regelwerk-content h3:hover {
+            color: #4169e1;
+            letter-spacing: 0.5px;
+            border-bottom-color: #4169e1;
         }
 
         .regelwerk-content h4 {
             color: var(--accent2);
             margin: 25px 0 12px 0;
             font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .regelwerk-content h4:hover {
+            color: #8a2be2;
+            transform: translateX(5px);
         }
 
         .regelwerk-content h5 {
@@ -458,6 +603,12 @@
             margin: 20px 0 10px 0;
             font-size: 1.1rem;
             font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .regelwerk-content h5:hover {
+            color: #8a2be2;
+            letter-spacing: 0.5px;
         }
 
         .regelwerk-content h3:first-child {
@@ -476,15 +627,26 @@
             position: relative;
             padding-left: 20px;
             line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .regelwerk-content li:hover {
+            color: #fff;
+            transform: translateX(5px);
         }
 
         .regelwerk-content li::before {
-            content: '•';
+            content: '▸';
             color: var(--accent1);
             position: absolute;
             left: 0;
             font-size: 1.2rem;
-            top: 0;
+            transition: all 0.3s ease;
+        }
+
+        .regelwerk-content li:hover::before {
+            color: #4169e1;
+            transform: scale(1.3);
         }
 
         /* Feedback Modal */
@@ -501,6 +663,11 @@
             margin-bottom: 8px;
             font-weight: 500;
             color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .form-group:hover label {
+            color: var(--accent1);
         }
 
         .form-control {
@@ -520,6 +687,12 @@
             border-color: var(--accent1);
             background-color: rgba(255, 255, 255, 0.08);
             box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .form-control:hover {
+            border-color: rgba(138, 43, 226, 0.3);
+            background-color: rgba(255, 255, 255, 0.08);
         }
 
         textarea.form-control {
@@ -555,8 +728,8 @@
         }
 
         .btn-submit:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.4);
         }
 
         .btn-submit:hover:not(:disabled)::after {
@@ -578,6 +751,12 @@
             display: none;
             align-items: center;
             gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .cooldown-notice:hover {
+            background-color: rgba(255, 170, 0, 0.2);
+            transform: translateX(5px);
         }
 
         .form-status {
@@ -587,6 +766,7 @@
             text-align: center;
             display: none;
             animation: fadeIn 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .form-status.success {
@@ -599,6 +779,10 @@
             background-color: rgba(255, 51, 102, 0.1);
             color: var(--error);
             display: block;
+        }
+
+        .form-status:hover {
+            transform: scale(1.02);
         }
 
         /* ===== FOOTER ===== */
@@ -623,6 +807,12 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section h3:hover {
+            transform: scale(1.05);
+            letter-spacing: 1px;
         }
 
         .footer-links {
@@ -640,11 +830,14 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
         }
 
         .footer-links a:hover {
             color: var(--text-primary);
-            transform: translateX(5px);
+            transform: translateX(10px);
+            background-color: rgba(138, 43, 226, 0.1);
         }
 
         .social-links {
@@ -664,12 +857,30 @@
             color: var(--text-secondary);
             font-size: 1.2rem;
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .social-links a:hover::before {
+            left: 100%;
         }
 
         .social-links a:hover {
             background: var(--gradient);
             color: white;
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
         }
 
         .copyright {
@@ -678,6 +889,11 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-secondary);
             font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .copyright:hover {
+            color: var(--text-primary);
         }
 
         /* ===== RESPONSIVE ===== */
@@ -725,6 +941,17 @@
             transform: translateY(0);
         }
 
+        /* GLOW EFFECT FOR IMPORTANT ELEMENTS */
+        .glow-on-hover {
+            transition: all 0.3s ease;
+        }
+
+        .glow-on-hover:hover {
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.3),
+                        0 0 25px rgba(138, 43, 226, 0.2),
+                        0 0 35px rgba(138, 43, 226, 0.1);
+        }
+
         /* ===== SCROLLBAR ===== */
         ::-webkit-scrollbar {
             width: 10px;
@@ -737,6 +964,12 @@
         ::-webkit-scrollbar-thumb {
             background: var(--gradient);
             border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #4169e1, #8a2be2);
+            transform: scale(1.1);
         }
         
         .modal-content::-webkit-scrollbar {
@@ -901,162 +1134,149 @@
 
     <!-- JavaScript -->
     <script>
-        // ===== LADE KONFIGURATION AUS config.js =====
-        function loadConfig() {
-            // Diese Funktion wird aufgerufen, wenn config.js geladen wurde
-            console.log('Konfiguration geladen:', PAGE_CONFIG);
-            
-            // Prüfe ob alle Konfigurationen vorhanden sind
-            if (!PAGE_CONFIG || !SERVER_FEATURES || !TEAM_MITGLIEDER || !CHANGELOGS || !REGELWERK_HTML) {
-                console.error('Fehler: Nicht alle Konfigurationen gefunden!');
-                return false;
-            }
-            
-            return true;
-        }
-
         // ===== INITIALISIERUNG =====
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM geladen, starte Initialisierung...');
             
-            // Warte kurz, damit config.js geladen wird
-            setTimeout(() => {
-                if (!loadConfig()) {
-                    console.error('Konfiguration konnte nicht geladen werden!');
-                    return;
+            // Warte auf die Konfiguration
+            const waitForConfig = setInterval(() => {
+                if (typeof PAGE_CONFIG !== 'undefined' && 
+                    typeof SERVER_FEATURES !== 'undefined' &&
+                    typeof TEAM_MITGLIEDER !== 'undefined') {
+                    
+                    clearInterval(waitForConfig);
+                    initializeSite();
                 }
-                
-                // 1. Seiteninformationen setzen
-                setPageInfo();
-                
-                // 2. Features laden
-                loadFeatures();
-                
-                // 3. Team laden
-                loadTeam();
-                
-                // 4. Changelogs laden
-                loadChangelogs();
-                
-                // 5. Regelwerk laden
-                loadRegelwerk();
-                
-                // 6. Discord Link setzen
-                setupDiscordLink();
-                
-                // 7. Animationen initialisieren
-                initAnimations();
-                
-                // 8. Hash-based Navigation
-                handleHashNavigation();
-                
-                // 9. Feedback Formular
-                setupFeedbackForm();
-                
-                console.log('✅ Webseite vollständig geladen!');
-                console.log('Team-Mitglieder:', TEAM_MITGLIEDER.length);
-                console.log('Regelwerk Länge:', REGELWERK_HTML.length);
             }, 100);
+            
+            // Timeout nach 5 Sekunden
+            setTimeout(() => {
+                if (typeof PAGE_CONFIG === 'undefined') {
+                    console.warn('Konfiguration nicht gefunden, verwende Standardwerte');
+                    initializeSiteWithDefaults();
+                }
+            }, 5000);
         });
-
-        // ===== FUNKTIONEN =====
         
-        // 1. Seiteninformationen setzen
-        function setPageInfo() {
+        function initializeSite() {
+            console.log('✅ Konfiguration geladen, initialisiere Seite...');
+            
+            // 1. Seiteninformationen setzen
             if (PAGE_CONFIG) {
                 document.getElementById('siteName').textContent = PAGE_CONFIG.siteName;
                 document.getElementById('mainTitle').textContent = PAGE_CONFIG.siteName;
                 document.getElementById('siteTagline').textContent = PAGE_CONFIG.siteTagline;
+                document.getElementById('footerTitle').textContent = PAGE_CONFIG.siteName;
+                document.getElementById('footerDescription').textContent = PAGE_CONFIG.siteTagline;
                 document.getElementById('footerText').textContent = PAGE_CONFIG.footerText;
                 document.title = PAGE_CONFIG.siteName + ' - RP Server auf Roblox';
             }
+            
+            // 2. Features laden
+            if (SERVER_FEATURES) {
+                const container = document.getElementById('featuresContainer');
+                container.innerHTML = '';
+                
+                SERVER_FEATURES.forEach((feature, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'feature-card fade-in';
+                    card.innerHTML = `
+                        <div class="feature-icon">
+                            <i class="fas ${feature.icon}"></i>
+                        </div>
+                        <h3>${feature.title}</h3>
+                        <p>${feature.description}</p>
+                    `;
+                    container.appendChild(card);
+                    
+                    setTimeout(() => {
+                        card.style.transitionDelay = `${index * 0.1}s`;
+                        card.classList.add('visible');
+                    }, 100);
+                });
+            }
+            
+            // 3. Team laden
+            if (TEAM_MITGLIEDER) {
+                const container = document.getElementById('teamContainer');
+                container.innerHTML = '';
+                
+                TEAM_MITGLIEDER.forEach(member => {
+                    const div = document.createElement('div');
+                    div.className = 'team-member';
+                    div.innerHTML = `
+                        <div class="team-member-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="team-member-info">
+                            <div class="team-member-name">${member.name}</div>
+                            <div class="team-member-rang">${member.rang}</div>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+            
+            // 4. Changelogs laden
+            if (CHANGELOGS) {
+                const container = document.getElementById('changelogsContainer');
+                container.innerHTML = '';
+                
+                const sorted = [...CHANGELOGS].sort((a, b) => b.id - a.id);
+                
+                sorted.forEach(changelog => {
+                    const div = document.createElement('div');
+                    div.className = 'changelog-item';
+                    div.innerHTML = `
+                        <div class="changelog-header">
+                            <div class="changelog-title">${changelog.titel}</div>
+                            <div class="changelog-date">${changelog.datum}</div>
+                        </div>
+                        <div class="changelog-description">
+                            ${changelog.beschreibung}
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+            
+            // 5. Regelwerk laden
+            if (REGELWERK_HTML) {
+                const container = document.getElementById('regelwerkContainer');
+                container.innerHTML = REGELWERK_HTML;
+            }
+            
+            // 6. Discord Link setzen
+            setupDiscordLink();
+            
+            // 7. Animationen initialisieren
+            initAnimations();
+            
+            // 8. Hash-based Navigation
+            handleHashNavigation();
+            
+            // 9. Feedback Formular
+            setupFeedbackForm();
+            
+            console.log('✅ Seite vollständig initialisiert!');
         }
         
-        // 2. Features laden
-        function loadFeatures() {
-            const container = document.getElementById('featuresContainer');
-            if (!container || !SERVER_FEATURES) return;
+        function initializeSiteWithDefaults() {
+            // Fallback-Werte
+            document.getElementById('mainTitle').textContent = 'Gaming Life';
+            document.getElementById('siteTagline').textContent = 'RP Server auf Roblox';
+            document.getElementById('footerTitle').textContent = 'Gaming Life';
+            document.getElementById('footerDescription').textContent = 'RP Server auf Roblox';
+            document.getElementById('footerText').textContent = '© 2023 Gaming Life RP Server';
             
-            container.innerHTML = '';
-            SERVER_FEATURES.forEach((feature, index) => {
-                const card = document.createElement('div');
-                card.className = 'feature-card fade-in';
-                card.innerHTML = `
-                    <div class="feature-icon">
-                        <i class="fas ${feature.icon}"></i>
-                    </div>
-                    <h3>${feature.title}</h3>
-                    <p>${feature.description}</p>
-                `;
-                container.appendChild(card);
-                
-                setTimeout(() => {
-                    card.style.transitionDelay = `${index * 0.1}s`;
-                    card.classList.add('visible');
-                }, 100);
-            });
+            initAnimations();
         }
-
-        // 3. Team laden
-        function loadTeam() {
-            const container = document.getElementById('teamContainer');
-            if (!container || !TEAM_MITGLIEDER) return;
-            
-            container.innerHTML = '';
-            console.log('Lade Team-Mitglieder:', TEAM_MITGLIEDER);
-            
-            TEAM_MITGLIEDER.forEach(member => {
-                const div = document.createElement('div');
-                div.className = 'team-member';
-                div.innerHTML = `
-                    <div class="team-member-icon">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="team-member-info">
-                        <div class="team-member-name">${member.name}</div>
-                        <div class="team-member-rang">${member.rang}</div>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        // 4. Changelogs laden
-        function loadChangelogs() {
-            const container = document.getElementById('changelogsContainer');
-            if (!container || !CHANGELOGS) return;
-            
-            container.innerHTML = '';
-            const sorted = [...CHANGELOGS].sort((a, b) => b.id - a.id);
-            
-            sorted.forEach(changelog => {
-                const div = document.createElement('div');
-                div.className = 'changelog-item';
-                div.innerHTML = `
-                    <div class="changelog-header">
-                        <div class="changelog-title">${changelog.titel}</div>
-                        <div class="changelog-date">${changelog.datum}</div>
-                    </div>
-                    <div class="changelog-description">
-                        ${changelog.beschreibung}
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        // 5. Regelwerk laden
-        function loadRegelwerk() {
-            const container = document.getElementById('regelwerkContainer');
-            if (!container || !REGELWERK_HTML) return;
-            
-            console.log('Lade Regelwerk...');
-            container.innerHTML = REGELWERK_HTML;
-        }
-
-        // 6. Discord Link setzen
+        
+        // ===== DISCORD LINK SETUP =====
         function setupDiscordLink() {
-            if (DISCORD_INVITE_URL && DISCORD_INVITE_URL !== 'https://discord.gg/DEIN_LINK_HIER') {
+            if (typeof DISCORD_INVITE_URL !== 'undefined' && 
+                DISCORD_INVITE_URL !== 'https://discord.gg/DEIN_LINK_HIER') {
+                
                 const discordButton = document.getElementById('discordButton');
                 if (discordButton) {
                     discordButton.onclick = function(e) {
@@ -1074,8 +1294,8 @@
                 }
             }
         }
-
-        // 7. Animationen initialisieren
+        
+        // ===== ANIMATIONEN INITIALISIEREN =====
         function initAnimations() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1087,7 +1307,7 @@
             
             document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
         }
-
+        
         // ===== MODAL FUNKTIONEN =====
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
@@ -1097,7 +1317,7 @@
                 window.location.hash = modalId;
             }
         }
-
+        
         function closeModal(modalId) {
             const modal = document.getElementById(modalId);
             if (modal) {
@@ -1108,7 +1328,7 @@
                 }
             }
         }
-
+        
         function handleHashNavigation() {
             const hash = window.location.hash.replace('#', '');
             const validModals = ['teamModal', 'changelogsModal', 'regelwerkModal', 'feedbackModal'];
@@ -1117,14 +1337,17 @@
                 setTimeout(() => openModal(hash), 100);
             }
         }
-
+        
         // ===== DISCORD FUNKTION =====
         function openDiscord() {
-            if (DISCORD_INVITE_URL && DISCORD_INVITE_URL !== 'https://discord.gg/DEIN_LINK_HIER') {
+            if (typeof DISCORD_INVITE_URL !== 'undefined' && 
+                DISCORD_INVITE_URL !== 'https://discord.gg/DEIN_LINK_HIER') {
                 window.open(DISCORD_INVITE_URL, '_blank');
+            } else {
+                alert('Discord-Link nicht konfiguriert!');
             }
         }
-
+        
         // ===== FEEDBACK FUNKTIONEN =====
         function setupFeedbackForm() {
             const form = document.getElementById('feedbackForm');
@@ -1134,7 +1357,7 @@
             
             let cooldownEnd = localStorage.getItem('feedbackCooldown');
             let cooldownInterval;
-
+            
             function updateCooldown() {
                 if (!cooldownEnd) return;
                 
@@ -1155,14 +1378,14 @@
                 document.getElementById('cooldownNotice').style.display = 'flex';
                 document.getElementById('submitBtn').disabled = true;
             }
-
+            
             if (cooldownEnd) {
                 cooldownEnd = parseInt(cooldownEnd);
                 updateCooldown();
                 cooldownInterval = setInterval(updateCooldown, 1000);
             }
         }
-
+        
         function submitFeedback(event) {
             event.preventDefault();
             
@@ -1178,7 +1401,8 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Wird gesendet...';
             
-            if (DISCORD_WEBHOOK_URL && DISCORD_WEBHOOK_URL !== 'DEINE_DISCORD_WEBHOOK_URL_HIER') {
+            if (typeof DISCORD_WEBHOOK_URL !== 'undefined' && 
+                DISCORD_WEBHOOK_URL !== 'DEINE_DISCORD_WEBHOOK_URL_HIER') {
                 sendToDiscordWebhook(username, message);
             } else {
                 setTimeout(() => {
@@ -1186,7 +1410,7 @@
                 }, 1500);
             }
         }
-
+        
         function sendToDiscordWebhook(username, message) {
             const payload = {
                 content: `**Neues Feedback von ${username}**\n\n${message}`,
@@ -1211,7 +1435,7 @@
                 document.getElementById('submitBtn').innerHTML = '<i class="fas fa-paper-plane"></i> Feedback senden';
             });
         }
-
+        
         function handleFeedbackSuccess() {
             showStatus('Vielen Dank! Dein Feedback wurde gesendet.', 'success');
             document.getElementById('feedbackForm').reset();
@@ -1250,14 +1474,14 @@
                 }, 300);
             }, 2000);
         }
-
+        
         function showStatus(message, type) {
             const formStatus = document.getElementById('formStatus');
             formStatus.textContent = message;
             formStatus.className = `form-status ${type}`;
             formStatus.style.display = 'block';
         }
-
+        
         // ===== GLOBAL EVENTS =====
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
@@ -1266,7 +1490,7 @@
                 });
             }
         });
-
+        
         document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
@@ -1274,8 +1498,16 @@
                 }
             });
         });
-
+        
         window.addEventListener('hashchange', handleHashNavigation);
+        
+        // ===== ADD GLOW EFFECT TO IMPORTANT ELEMENTS =====
+        setTimeout(() => {
+            const importantElements = document.querySelectorAll('.cta-button, .btn-submit, .close-modal, .social-links a');
+            importantElements.forEach(el => {
+                el.classList.add('glow-on-hover');
+            });
+        }, 500);
     </script>
 </body>
 </html>
