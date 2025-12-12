@@ -301,7 +301,7 @@
             background-color: var(--card-bg);
             border-radius: var(--border-radius);
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             max-height: 80vh;
             overflow-y: auto;
             padding: 40px;
@@ -429,20 +429,35 @@
             color: var(--text-secondary);
         }
 
-        /* Regelwerk Modal */
+        /* Regelwerk Modal - Optimiert für lange Texte */
         .regelwerk-content {
             margin-top: 30px;
             padding: 30px;
             background-color: rgba(255, 255, 255, 0.03);
             border-radius: 10px;
-            max-height: 50vh;
+            max-height: 60vh;
             overflow-y: auto;
         }
 
         .regelwerk-content h3 {
             color: var(--accent1);
-            margin: 25px 0 15px 0;
-            font-size: 1.3rem;
+            margin: 30px 0 15px 0;
+            font-size: 1.4rem;
+            border-bottom: 2px solid rgba(138, 43, 226, 0.2);
+            padding-bottom: 8px;
+        }
+
+        .regelwerk-content h4 {
+            color: var(--accent2);
+            margin: 25px 0 12px 0;
+            font-size: 1.2rem;
+        }
+
+        .regelwerk-content h5 {
+            color: var(--text-primary);
+            margin: 20px 0 10px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
 
         .regelwerk-content h3:first-child {
@@ -452,20 +467,24 @@
         .regelwerk-content ul {
             list-style: none;
             padding-left: 20px;
+            margin-bottom: 20px;
         }
 
         .regelwerk-content li {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: var(--text-secondary);
             position: relative;
-            padding-left: 15px;
+            padding-left: 20px;
+            line-height: 1.6;
         }
 
         .regelwerk-content li::before {
             content: '•';
-            color: var(--accent2);
+            color: var(--accent1);
             position: absolute;
             left: 0;
+            font-size: 1.2rem;
+            top: 0;
         }
 
         /* Feedback Modal */
@@ -889,9 +908,11 @@
             // Prüfe ob config.js geladen wurde
             if (typeof PAGE_CONFIG === 'undefined') {
                 console.error('config.js wurde nicht gefunden oder konnte nicht geladen werden!');
-                alert('Fehler: config.js Datei fehlt oder ist nicht korrekt!');
+                alert('Fehler: config.js Datei fehlt oder ist nicht korrekt! Stelle sicher, dass config.js im gleichen Ordner liegt.');
                 return;
             }
+            
+            console.log('Config gefunden:', PAGE_CONFIG);
             
             // 1. Seiteninformationen setzen
             setPageInfo();
@@ -927,6 +948,7 @@
         
         // 1. Seiteninformationen setzen
         function setPageInfo() {
+            console.log('Setze Seiteninfo:', PAGE_CONFIG);
             document.getElementById('siteName').textContent = PAGE_CONFIG.siteName;
             document.getElementById('mainTitle').textContent = PAGE_CONFIG.siteName;
             document.getElementById('siteTagline').textContent = PAGE_CONFIG.siteTagline;
@@ -941,6 +963,8 @@
                 console.error('Features Container nicht gefunden!');
                 return;
             }
+            
+            console.log('Lade Features:', SERVER_FEATURES);
             
             container.innerHTML = '';
             SERVER_FEATURES.forEach((feature, index) => {
@@ -966,7 +990,12 @@
         // 3. Team laden
         function loadTeam() {
             const container = document.getElementById('teamContainer');
-            if (!container) return;
+            if (!container) {
+                console.error('Team Container nicht gefunden!');
+                return;
+            }
+            
+            console.log('Lade Team:', TEAM_MITGLIEDER);
             
             container.innerHTML = '';
             TEAM_MITGLIEDER.forEach(member => {
@@ -988,7 +1017,12 @@
         // 4. Changelogs laden
         function loadChangelogs() {
             const container = document.getElementById('changelogsContainer');
-            if (!container) return;
+            if (!container) {
+                console.error('Changelogs Container nicht gefunden!');
+                return;
+            }
+            
+            console.log('Lade Changelogs:', CHANGELOGS);
             
             container.innerHTML = '';
             // Sortieren nach ID (höchste zuerst)
@@ -1013,9 +1047,20 @@
         // 5. Regelwerk laden
         function loadRegelwerk() {
             const container = document.getElementById('regelwerkContainer');
-            if (!container) return;
+            if (!container) {
+                console.error('Regelwerk Container nicht gefunden!');
+                return;
+            }
             
-            container.innerHTML = REGELWERK_HTML;
+            console.log('Lade Regelwerk (Länge):', REGELWERK_HTML ? REGELWERK_HTML.length : 0);
+            
+            if (REGELWERK_HTML) {
+                container.innerHTML = REGELWERK_HTML;
+                console.log('Regelwerk erfolgreich geladen!');
+            } else {
+                container.innerHTML = '<p style="color: var(--error);">Regelwerk konnte nicht geladen werden!</p>';
+                console.error('REGELWERK_HTML ist undefined oder leer!');
+            }
         }
 
         // 6. Discord Link setzen
