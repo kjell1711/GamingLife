@@ -9,11 +9,6 @@ const DISCORD_WEBHOOK_URL = 'DEINE_DISCORD_WEBHOOK_URL_HIER';
 // Discord Server Einladungslink
 const DISCORD_INVITE_URL = 'https://discord.gg/DEIN_LINK_HIER';
 
-// Externe Links (falls benötigt)
-const EXTERNAL_LINKS = {
-    // Hier können externe Links stehen, die nicht auf Modals führen
-};
-
 // Team Mitglieder Liste
 const TEAM_MITGLIEDER = [
     { name: 'Max Mustermann', rang: 'Server-Inhaber' },
@@ -24,7 +19,7 @@ const TEAM_MITGLIEDER = [
     { name: 'Sarah Supporter', rang: 'Supporter' }
 ];
 
-// Server Features für die Startseite (nun 4 statt 6)
+// Server Features für die Startseite (weniger, aber besser)
 const SERVER_FEATURES = [
     { 
         title: 'Sehr aktiver Server', 
@@ -40,15 +35,10 @@ const SERVER_FEATURES = [
         title: 'Voice-Chat Only', 
         description: 'Nur mit Sprachchat für maximalen Realismus und bessere Kommunikation.',
         icon: 'fa-microphone'
-    },
-    { 
-        title: 'Aktive Fraktionen', 
-        description: 'Realistische Einsatzkräfte mit klaren Hierarchien und speziellen Fahrzeugen.',
-        icon: 'fa-sitemap'
     }
 ];
 
-// Changelog Einträge (mit ID, neueste zuerst)
+// Changelog Einträge (höchste ID zuerst)
 const CHANGELOGS = [
     { 
         id: 5,
@@ -65,7 +55,7 @@ const CHANGELOGS = [
     { 
         id: 3,
         titel: 'Neue Fahrzeuge', 
-        beschreibung: 'Drei neue Einsatzfahrzeuge sind jetzt verfügbar: Feuerwehr-LKW, Polizei-Hubschrauber und Rettungswagen.',
+        beschreibung: 'Drei neue Einsatzfahrzeuge sind jetzt verfügbar.',
         datum: '05.10.2023'
     },
     { 
@@ -77,33 +67,44 @@ const CHANGELOGS = [
     { 
         id: 1,
         titel: 'Neue Fraktionen', 
-        beschreibung: 'Die THW-Fraktion wurde hinzugefügt mit speziellen Fahrzeugen und Ausrüstung.',
+        beschreibung: 'Die THW-Fraktion wurde hinzugefügt.',
         datum: '25.09.2023'
     }
 ];
 
-// Regelwerk (als HTML-String oder Array von Abschnitten)
-// Hier als Array von Abschnitten, jeder Abschnitt hat eine Überschrift und eine Liste von Regeln
-const REGELWERK = [
-    {
-        ueberschrift: 'Allgemeine Regeln',
-        regeln: [
-            'Respektvoller Umgang mit allen Spielern ist Pflicht.',
-            'Rassistische, sexistische oder anderweitig beleidigende Äußerungen sind verboten.',
-            'Das Verwenden von Cheats oder Exploits führt zu einem sofortigen Bann.',
-            'Spamming in Text- oder Voice-Chat ist nicht erlaubt.'
-        ]
-    },
-    {
-        ueberschrift: 'Rollenspiel-Regeln',
-        regeln: [
-            'Das Rollenspiel muss stets ernsthaft und realistisch sein.',
-            'Powergaming (unerlaubte Vorteilsbeschaffung) ist verboten.',
-            'Metagaming (Nutzung von Wissen, das die Figur nicht haben kann) ist untersagt.'
-        ]
-    },
-    // ... weitere Abschnitte
-];
+// Regelwerk HTML (kann direkt HTML enthalten)
+const REGELWERK_HTML = `
+<h3>Allgemeine Regeln</h3>
+<ul>
+    <li>Respektvoller Umgang mit allen Spielern ist Pflicht</li>
+    <li>Rassistische, sexistische oder anderweitig beleidigende Äußerungen sind verboten</li>
+    <li>Das Verwenden von Cheats oder Exploits führt zu einem sofortigen Bann</li>
+    <li>Spamming in Text- oder Voice-Chat ist nicht erlaubt</li>
+</ul>
+
+<h3>Rollenspiel-Regeln</h3>
+<ul>
+    <li>Das Rollenspiel muss stets ernsthaft und realistisch sein</li>
+    <li>Powergaming (unerlaubte Vorteilsbeschaffung) ist verboten</li>
+    <li>Metagaming (Nutzung von Wissen, das die Figur nicht haben kann) ist untersagt</li>
+    <li>Charaktere müssen logisch und konsistent gespielt werden</li>
+</ul>
+
+<h3>Voice-Chat Regeln</h3>
+<ul>
+    <li>Der Voice-Chat ist für Rollenspielzwecke zu nutzen</li>
+    <li>Störgeräusche sind zu vermeiden (Push-to-Talk wird empfohlen)</li>
+    <li>Musik oder andere Audio-Abspielungen sind untersagt</li>
+    <li>Respektvolle Kommunikation ist jederzeit einzuhalten</li>
+</ul>
+
+<h3>Fraktionen und Ränge</h3>
+<ul>
+    <li>Ränge innerhalb von Fraktionen sind zu respektieren</li>
+    <li>Beförderungen erfolgen durch verdientes Spiel und Engagement</li>
+    <li>Jede Fraktion hat spezifische Regeln, die zusätzlich zu beachten sind</li>
+</ul>
+`;
 
 // Farbkonfiguration
 const COLORS = {
