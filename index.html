@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -8,10 +7,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Externe Config-Datei einbinden -->
-    <script src="config.js"></script>
-    
     <style>
+        /* ===== VARIABLEN ===== */
         :root {
             --primary: #0a0a0f;
             --secondary: #12121a;
@@ -24,13 +21,13 @@
             --success: #00cc88;
             --warning: #ffaa00;
             --error: #ff3366;
-            --border-radius: 20px;
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            --shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            --shadow-light: 0 10px 20px rgba(0, 0, 0, 0.2);
+            --border-radius: 16px;
+            --transition: all 0.3s ease;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             --gradient: linear-gradient(135deg, var(--accent1), var(--accent2));
         }
 
+        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -42,17 +39,11 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--primary);
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
-            background: 
-                radial-gradient(circle at 0% 0%, rgba(138, 43, 226, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 100% 0%, rgba(65, 105, 225, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 100% 100%, rgba(138, 43, 226, 0.02) 0%, transparent 50%),
-                radial-gradient(circle at 0% 100%, rgba(65, 105, 225, 0.02) 0%, transparent 50%),
-                var(--primary);
         }
 
         .container {
@@ -61,153 +52,94 @@
             padding: 0 20px;
         }
 
-        /* Header & Navigation */
+        /* ===== HEADER & NAVIGATION ===== */
         header {
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: rgba(10, 10, 15, 0.98);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s ease;
-        }
-
-        header.scrolled {
-            padding: 5px 0;
             background-color: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 22px 0;
-            transition: all 0.4s ease;
+            padding: 20px 0;
         }
 
         .logo {
-            font-size: 2rem;
-            font-weight: 800;
+            font-size: 1.8rem;
+            font-weight: 700;
             background: var(--gradient);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             text-decoration: none;
             transition: var(--transition);
-            letter-spacing: -0.5px;
         }
 
         .logo:hover {
             transform: scale(1.05);
-            filter: brightness(1.2);
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 25px;
         }
 
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
-            font-size: 1rem;
+            padding: 10px 15px;
+            border-radius: 8px;
             transition: var(--transition);
-            padding: 12px 20px;
-            border-radius: 12px;
-            position: relative;
-            overflow: hidden;
         }
 
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient);
-            opacity: 0.1;
-            transition: left 0.4s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-primary);
-            background-color: rgba(255, 255, 255, 0.03);
-            transform: translateY(-2px);
-        }
-
-        .nav-links a:hover::before {
-            left: 0;
-        }
-
+        .nav-links a:hover,
         .nav-links a.active {
             color: var(--text-primary);
-            background-color: rgba(138, 43, 226, 0.1);
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
-        /* Hero Section */
+        /* ===== HERO SECTION ===== */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
+            padding: 120px 0 60px;
             position: relative;
-            padding: 120px 0 80px;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(65, 105, 225, 0.1) 0%, transparent 40%);
-            z-index: -1;
-            animation: pulse 8s ease-in-out infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.3; }
-            100% { opacity: 0.5; }
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
+            background: radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.1) 0%, transparent 40%);
         }
 
         .hero h1 {
-            font-size: 5.5rem;
-            font-weight: 900;
+            font-size: 4rem;
+            font-weight: 800;
             background: var(--gradient);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 30px;
-            line-height: 1;
-            letter-spacing: -1px;
-            animation: float 6s ease-in-out infinite;
-            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .hero p {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: var(--text-secondary);
-            margin-bottom: 50px;
-            font-weight: 300;
-            animation: fadeInUp 1s ease 0.3s both;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .cta-button {
@@ -215,146 +147,73 @@
             background: var(--gradient);
             color: white;
             border: none;
-            padding: 22px 48px;
-            font-size: 1.2rem;
+            padding: 18px 36px;
+            font-size: 1.1rem;
             font-weight: 600;
-            border-radius: 16px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: var(--transition);
             text-decoration: none;
-            text-align: center;
-            font-family: 'Inter', sans-serif;
-            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-button::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
+            box-shadow: 0 5px 20px rgba(138, 43, 226, 0.3);
         }
 
         .cta-button:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(138, 43, 226, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.4);
         }
 
-        .cta-button:hover::after {
-            transform: translateX(100%);
-        }
-
-        /* Features Section */
+        /* ===== FEATURES SECTION ===== */
         .features {
-            padding: 150px 0;
-            position: relative;
+            padding: 100px 0;
         }
 
         .section-title {
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             text-align: center;
-            margin-bottom: 100px;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: var(--gradient);
-            border-radius: 2px;
+            margin-bottom: 60px;
+            font-weight: 700;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            perspective: 1000px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
 
         .feature-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(10px);
+            background-color: var(--card-bg);
             border-radius: var(--border-radius);
-            padding: 50px 40px;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-            transform: translateZ(0);
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1;
+            padding: 35px 30px;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
         }
 
         .feature-card:hover {
-            transform: translateY(-20px) scale(1.03) rotateX(5deg);
+            transform: translateY(-10px);
             box-shadow: var(--shadow);
             border-color: rgba(138, 43, 226, 0.3);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .feature-card:hover::before {
-            opacity: 0.1;
         }
 
         .feature-icon {
-            font-size: 3.5rem;
-            margin-bottom: 30px;
+            font-size: 3rem;
+            margin-bottom: 20px;
             background: var(--gradient);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            display: inline-block;
-            transition: var(--transition);
-        }
-
-        .feature-card:hover .feature-icon {
-            transform: scale(1.2) rotate(5deg);
         }
 
         .feature-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
         }
 
         .feature-card p {
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            line-height: 1.8;
         }
 
-        /* Modals */
+        /* ===== MODALS ===== */
         .modal {
             display: none;
             position: fixed;
@@ -366,105 +225,62 @@
             z-index: 2000;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(10px);
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            padding: 20px;
         }
 
         .modal.active {
             display: flex;
-            animation: fadeIn 0.4s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
         .modal-content {
-            background: var(--card-bg);
+            background-color: var(--card-bg);
             border-radius: var(--border-radius);
-            width: 90%;
-            max-width: 900px;
-            max-height: 85vh;
+            width: 100%;
+            max-width: 800px;
+            max-height: 80vh;
             overflow-y: auto;
-            padding: 60px;
+            padding: 40px;
             position: relative;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: var(--shadow);
-            transform: translateY(50px) scale(0.9);
-            opacity: 0;
-            animation: modalSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards;
-        }
-
-        @keyframes modalSlideIn {
-            to {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
         }
 
         .close-modal {
             position: absolute;
-            top: 30px;
-            right: 30px;
-            background: rgba(255, 255, 255, 0.05);
+            top: 20px;
+            right: 20px;
+            background: none;
             border: none;
             color: var(--text-secondary);
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             cursor: pointer;
             transition: var(--transition);
-            z-index: 10;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .close-modal:hover {
             color: var(--text-primary);
-            background: rgba(255, 255, 255, 0.1);
-            transform: rotate(90deg);
         }
 
         /* Team Modal */
         .team-list {
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            margin-top: 40px;
+            gap: 15px;
+            margin-top: 30px;
         }
 
         .team-member {
             display: flex;
             align-items: center;
-            padding: 25px 30px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 15px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
             border-left: 4px solid var(--accent1);
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .team-member:hover {
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateX(10px);
-            border-color: rgba(138, 43, 226, 0.3);
         }
 
         .team-member-icon {
-            font-size: 2rem;
-            margin-right: 20px;
+            font-size: 1.5rem;
+            margin-right: 15px;
             color: var(--accent1);
-            background: rgba(138, 43, 226, 0.1);
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .team-member-info {
@@ -473,97 +289,67 @@
 
         .team-member-name {
             font-weight: 600;
-            font-size: 1.3rem;
-            margin-bottom: 5px;
+            font-size: 1.1rem;
         }
 
         .team-member-rang {
             color: var(--accent2);
-            font-size: 1rem;
-            font-weight: 500;
+            font-size: 0.9rem;
         }
 
         /* Changelog Modal */
         .changelog-list {
             display: flex;
             flex-direction: column;
-            gap: 25px;
-            margin-top: 40px;
+            gap: 20px;
+            margin-top: 30px;
         }
 
         .changelog-item {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 15px;
-            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 20px;
             border-left: 4px solid var(--accent2);
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .changelog-item::before {
-            content: attr(data-id);
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 3rem;
-            font-weight: 900;
-            color: rgba(255, 255, 255, 0.03);
-            z-index: 0;
-        }
-
-        .changelog-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateX(10px);
-            border-color: rgba(65, 105, 225, 0.3);
         }
 
         .changelog-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-            position: relative;
-            z-index: 1;
+            align-items: center;
+            margin-bottom: 10px;
         }
 
         .changelog-title {
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 1.2rem;
         }
 
         .changelog-date {
             color: var(--accent1);
-            font-size: 1rem;
-            background: rgba(138, 43, 226, 0.1);
-            padding: 8px 16px;
-            border-radius: 20px;
-            white-space: nowrap;
+            font-size: 0.9rem;
+            background-color: rgba(138, 43, 226, 0.1);
+            padding: 5px 10px;
+            border-radius: 5px;
         }
 
         .changelog-description {
             color: var(--text-secondary);
-            line-height: 1.7;
-            position: relative;
-            z-index: 1;
         }
 
         /* Regelwerk Modal */
         .regelwerk-content {
-            margin-top: 40px;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 30px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            max-height: 50vh;
+            overflow-y: auto;
         }
 
         .regelwerk-content h3 {
             color: var(--accent1);
-            margin: 30px 0 15px 0;
-            font-size: 1.5rem;
-            font-weight: 600;
+            margin: 25px 0 15px 0;
+            font-size: 1.3rem;
         }
 
         .regelwerk-content h3:first-child {
@@ -572,24 +358,21 @@
 
         .regelwerk-content ul {
             list-style: none;
-            padding-left: 0;
+            padding-left: 20px;
         }
 
         .regelwerk-content li {
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             color: var(--text-secondary);
-            padding-left: 25px;
             position: relative;
-            line-height: 1.7;
+            padding-left: 15px;
         }
 
         .regelwerk-content li::before {
             content: '•';
             color: var(--accent2);
-            font-size: 1.5rem;
             position: absolute;
             left: 0;
-            top: -2px;
         }
 
         /* Feedback Modal */
@@ -598,33 +381,29 @@
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-weight: 500;
-            color: var(--text-secondary);
         }
 
         .form-control {
             width: 100%;
-            padding: 18px;
-            background: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            border-radius: 8px;
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
             font-size: 1rem;
-            transition: var(--transition);
         }
 
         .form-control:focus {
             outline: none;
             border-color: var(--accent1);
-            background: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.1);
         }
 
         textarea.form-control {
@@ -637,18 +416,17 @@
             background: var(--gradient);
             color: white;
             border: none;
-            padding: 20px;
-            font-size: 1.1rem;
+            padding: 16px;
+            font-size: 1rem;
             font-weight: 600;
-            border-radius: 12px;
+            border-radius: 8px;
             cursor: pointer;
             transition: var(--transition);
             margin-top: 10px;
         }
 
         .btn-submit:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.3);
+            transform: translateY(-2px);
         }
 
         .btn-submit:disabled {
@@ -657,61 +435,55 @@
         }
 
         .cooldown-notice {
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(255, 170, 0, 0.1);
-            border-radius: 10px;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: rgba(255, 170, 0, 0.1);
+            border-radius: 8px;
             color: var(--warning);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             display: none;
-            align-items: center;
-            gap: 10px;
         }
 
         .form-status {
             margin-top: 20px;
-            padding: 20px;
-            border-radius: 10px;
+            padding: 15px;
+            border-radius: 8px;
             text-align: center;
             display: none;
-            animation: fadeIn 0.3s ease;
         }
 
         .form-status.success {
-            background: rgba(0, 204, 136, 0.1);
+            background-color: rgba(0, 204, 136, 0.1);
             color: var(--success);
-            display: block;
         }
 
         .form-status.error {
-            background: rgba(255, 51, 102, 0.1);
+            background-color: rgba(255, 51, 102, 0.1);
             color: var(--error);
-            display: block;
         }
 
-        /* Footer */
+        /* ===== FOOTER ===== */
         footer {
-            background: var(--secondary);
-            padding: 80px 0 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            margin-top: 100px;
+            background-color: var(--secondary);
+            padding: 60px 0 30px;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 50px;
-            margin-bottom: 60px;
+            gap: 40px;
+            margin-bottom: 40px;
         }
 
         .footer-section h3 {
-            font-size: 1.3rem;
-            margin-bottom: 25px;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
             background: var(--gradient);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            font-weight: 700;
         }
 
         .footer-links {
@@ -719,7 +491,7 @@
         }
 
         .footer-links li {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .footer-links a {
@@ -728,8 +500,7 @@
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 1rem;
+            gap: 10px;
         }
 
         .footer-links a:hover {
@@ -740,92 +511,37 @@
         .social-links {
             display: flex;
             gap: 15px;
-            margin-top: 25px;
+            margin-top: 20px;
         }
 
         .social-links a {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
+            width: 45px;
+            height: 45px;
+            background-color: var(--card-bg);
+            border-radius: 50%;
             color: var(--text-secondary);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             transition: var(--transition);
         }
 
         .social-links a:hover {
             background: var(--gradient);
             color: white;
-            transform: translateY(-5px);
+            transform: translateY(-3px);
         }
 
         .copyright {
             text-align: center;
-            padding-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
-        /* Scroll Animation */
-        .fade-in-element {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .fade-in-element.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--primary);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--gradient);
-            border-radius: 6px;
-            border: 3px solid var(--primary);
-        }
-        
-        .modal-content::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        .modal-content::-webkit-scrollbar-track {
-            background: var(--card-bg);
-            border-radius: 4px;
-        }
-        
-        .modal-content::-webkit-scrollbar-thumb {
-            background: var(--gradient);
-            border-radius: 4px;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .hero h1 {
-                font-size: 4rem;
-            }
-            
-            .section-title {
-                font-size: 2.8rem;
-            }
-            
-            .feature-card {
-                padding: 40px 30px;
-            }
-        }
-
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -836,71 +552,75 @@
             }
             
             .hero p {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
             
             .section-title {
-                font-size: 2.2rem;
-                margin-bottom: 60px;
+                font-size: 2rem;
             }
             
             .features-grid {
                 grid-template-columns: 1fr;
-                gap: 30px;
             }
             
             .modal-content {
-                padding: 40px 25px;
-                width: 95%;
+                padding: 30px 20px;
             }
             
             .changelog-header {
                 flex-direction: column;
+                align-items: flex-start;
                 gap: 10px;
-            }
-            
-            .changelog-date {
-                align-self: flex-start;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
             }
         }
 
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .cta-button {
-                padding: 18px 36px;
-                font-size: 1rem;
-            }
-            
-            .feature-card {
-                padding: 30px 20px;
-            }
-            
-            .modal-content {
-                padding: 30px 20px;
-            }
+        /* ===== ANIMATIONEN ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient);
+            border-radius: 5px;
+        }
+        
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .modal-content::-webkit-scrollbar-track {
+            background: var(--card-bg);
         }
     </style>
 </head>
 <body>
-    <!-- Header & Navigation -->
+    <!-- Header -->
     <header>
         <div class="container">
             <nav>
                 <a href="#home" class="logo">Gaming Life</a>
                 <div class="nav-links">
                     <a href="#home" class="active">Start</a>
-                    <a href="#" data-modal="team">Unser Team</a>
-                    <a href="#" data-modal="changelogs">Changelogs</a>
-                    <a href="#" data-modal="regelwerk">Regelwerk</a>
-                    <a href="#" data-modal="feedback">Feedback</a>
+                    <a href="#" onclick="openModal('teamModal')">Unser Team</a>
+                    <a href="#" onclick="openModal('changelogsModal')">Changelogs</a>
+                    <a href="#" onclick="openModal('regelwerkModal')">Regelwerk</a>
+                    <a href="#" onclick="openModal('feedbackModal')">Feedback</a>
                 </div>
             </nav>
         </div>
@@ -909,23 +629,20 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
-            <div class="hero-content">
-                <h1 class="fade-in-element">Gaming Life</h1>
-                <p class="fade-in-element">Der beste Notruf-Emden-Server mit Voice-Chat</p>
-                <a href="#" class="cta-button fade-in-element" id="discordBtn">
-                    <i class="fab fa-discord" style="margin-right: 12px;"></i>
-                    Discord beitreten
-                </a>
-            </div>
+            <h1 class="fade-in">Gaming Life</h1>
+            <p class="fade-in">Der beste Notruf-Emden-Server mit Voice-Chat</p>
+            <a href="#" onclick="openDiscord()" class="cta-button fade-in">
+                <i class="fab fa-discord"></i> Discord beitreten
+            </a>
         </div>
     </section>
 
     <!-- Features Section -->
     <section class="features" id="features">
         <div class="container">
-            <h2 class="section-title fade-in-element">Server Features</h2>
-            <div class="features-grid">
-                <!-- Features werden via JavaScript eingefügt -->
+            <h2 class="section-title fade-in">Server Features</h2>
+            <div class="features-grid" id="featuresContainer">
+                <!-- Wird durch JavaScript gefüllt -->
             </div>
         </div>
     </section>
@@ -933,16 +650,15 @@
     <!-- Team Modal -->
     <div class="modal" id="teamModal">
         <div class="modal-content">
-            <button class="close-modal" data-close="teamModal">
+            <button class="close-modal" onclick="closeModal('teamModal')">
                 <i class="fas fa-times"></i>
             </button>
-            <h2 style="margin-bottom: 15px;">Unser Team</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 30px;">
-                Das engagierte Team hinter Gaming Life, das täglich dafür sorgt, dass der Server reibungslos läuft.
+            <h2>Unser Team</h2>
+            <p style="color: var(--text-secondary); margin: 10px 0 20px 0;">
+                Das engagierte Team hinter Gaming Life
             </p>
-            
             <div class="team-list" id="teamContainer">
-                <!-- Team-Mitglieder werden via JavaScript eingefügt -->
+                <!-- Wird durch JavaScript gefüllt -->
             </div>
         </div>
     </div>
@@ -950,16 +666,15 @@
     <!-- Changelogs Modal -->
     <div class="modal" id="changelogsModal">
         <div class="modal-content">
-            <button class="close-modal" data-close="changelogsModal">
+            <button class="close-modal" onclick="closeModal('changelogsModal')">
                 <i class="fas fa-times"></i>
             </button>
-            <h2 style="margin-bottom: 15px;">Changelogs</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 30px;">
-                Alle wichtigen Updates und Änderungen auf dem Gaming Life Server.
+            <h2>Changelogs</h2>
+            <p style="color: var(--text-secondary); margin: 10px 0 20px 0;">
+                Alle Updates und Änderungen
             </p>
-            
             <div class="changelog-list" id="changelogsContainer">
-                <!-- Changelogs werden via JavaScript eingefügt -->
+                <!-- Wird durch JavaScript gefüllt -->
             </div>
         </div>
     </div>
@@ -967,16 +682,15 @@
     <!-- Regelwerk Modal -->
     <div class="modal" id="regelwerkModal">
         <div class="modal-content">
-            <button class="close-modal" data-close="regelwerkModal">
+            <button class="close-modal" onclick="closeModal('regelwerkModal')">
                 <i class="fas fa-times"></i>
             </button>
-            <h2 style="margin-bottom: 15px;">Regelwerk</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 30px;">
-                Bitte halte dich an die folgenden Regeln, um ein angenehmes Spielerlebnis für alle zu gewährleisten.
+            <h2>Regelwerk</h2>
+            <p style="color: var(--text-secondary); margin: 10px 0 20px 0;">
+                Bitte halte dich an diese Regeln
             </p>
-            
             <div class="regelwerk-content" id="regelwerkContainer">
-                <!-- Regelwerk wird via JavaScript eingefügt -->
+                <!-- Wird durch JavaScript gefüllt -->
             </div>
         </div>
     </div>
@@ -984,35 +698,28 @@
     <!-- Feedback Modal -->
     <div class="modal" id="feedbackModal">
         <div class="modal-content">
-            <button class="close-modal" data-close="feedbackModal">
+            <button class="close-modal" onclick="closeModal('feedbackModal')">
                 <i class="fas fa-times"></i>
             </button>
-            <h2 style="margin-bottom: 15px;">Feedback senden</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 30px;">
-                Teile uns deine Meinung, Vorschläge oder Probleme mit. Dein Feedback wird direkt an unser Team gesendet.
+            <h2>Feedback senden</h2>
+            <p style="color: var(--text-secondary); margin: 10px 0 20px 0;">
+                Teile uns deine Meinung mit
             </p>
-            
-            <form class="feedback-form" id="feedbackForm">
+            <form class="feedback-form" id="feedbackForm" onsubmit="submitFeedback(event)">
                 <div class="form-group">
                     <label for="username">Dein Name (optional)</label>
-                    <input type="text" id="username" class="form-control" placeholder="Wie sollen wir dich nennen?">
+                    <input type="text" id="username" class="form-control" placeholder="Name">
                 </div>
-                
                 <div class="form-group">
                     <label for="message">Deine Nachricht *</label>
-                    <textarea id="message" class="form-control" placeholder="Beschreibe dein Feedback ausführlich..." required></textarea>
+                    <textarea id="message" class="form-control" placeholder="Dein Feedback..." required></textarea>
                 </div>
-                
                 <button type="submit" class="btn-submit" id="submitBtn">
-                    <i class="fas fa-paper-plane" style="margin-right: 10px;"></i>
-                    Feedback senden
+                    <i class="fas fa-paper-plane"></i> Feedback senden
                 </button>
-                
                 <div class="cooldown-notice" id="cooldownNotice">
-                    <i class="fas fa-clock"></i>
-                    Du kannst erst wieder in <span id="cooldownTimer">5:00</span> Minuten Feedback senden.
+                    <i class="fas fa-clock"></i> Cooldown: <span id="cooldownTimer">5:00</span>
                 </div>
-                
                 <div class="form-status" id="formStatus"></div>
             </form>
         </div>
@@ -1024,55 +731,140 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Gaming Life</h3>
-                    <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px;">
-                        Der führende RP-Server auf Roblox Notruf Emden mit aktiver Community und Voice-Chat.
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                        Der beste RP-Server auf Roblox Notruf Emden
                     </p>
                     <div class="social-links">
-                        <a href="#" id="discordFooterBtn" title="Discord">
+                        <a href="#" onclick="openDiscord()" title="Discord">
                             <i class="fab fa-discord"></i>
                         </a>
                     </div>
                 </div>
-                
                 <div class="footer-section">
-                    <h3>Wichtige Links</h3>
+                    <h3>Links</h3>
                     <ul class="footer-links">
-                        <li><a href="#" data-modal="team"><i class="fas fa-users-cog"></i> Unser Team</a></li>
-                        <li><a href="#" data-modal="changelogs"><i class="fas fa-clipboard-list"></i> Changelogs</a></li>
-                        <li><a href="#" data-modal="regelwerk"><i class="fas fa-book"></i> Regelwerk</a></li>
-                        <li><a href="#" data-modal="feedback"><i class="fas fa-comment"></i> Feedback</a></li>
+                        <li><a href="#" onclick="openModal('teamModal')"><i class="fas fa-users"></i> Unser Team</a></li>
+                        <li><a href="#" onclick="openModal('changelogsModal')"><i class="fas fa-clipboard-list"></i> Changelogs</a></li>
+                        <li><a href="#" onclick="openModal('regelwerkModal')"><i class="fas fa-book"></i> Regelwerk</a></li>
+                        <li><a href="#" onclick="openModal('feedbackModal')"><i class="fas fa-comment"></i> Feedback</a></li>
                     </ul>
                 </div>
             </div>
-            
             <div class="copyright" id="footerText">
-                &copy; 2023 Gaming Life RP Server. Alle Rechte vorbehalten. Roblox ist eine eingetragene Marke von Roblox Corporation.
+                &copy; 2023 Gaming Life RP Server
             </div>
         </div>
     </footer>
 
+    <!-- JavaScript -->
     <script>
-        // =========================
-        // INITIALISIERUNG
-        // =========================
-        
+        // ===== KONFIGURATION =====
+        const CONFIG = {
+            discordWebhook: 'DEINE_WEBHOOK_URL_HIER',
+            discordInvite: 'https://discord.gg/DEIN_LINK',
+            
+            teamMembers: [
+                { name: 'Max Mustermann', rang: 'Server-Inhaber' },
+                { name: 'Lisa Beispiel', rang: 'Head-Admin' },
+                { name: 'Tom Test', rang: 'Admin' },
+                { name: 'Anna Admin', rang: 'Admin' },
+                { name: 'Paul Moderator', rang: 'Moderator' },
+                { name: 'Sarah Supporter', rang: 'Supporter' }
+            ],
+            
+            features: [
+                { 
+                    title: 'Sehr aktiver Server', 
+                    description: 'Über 500 tägliche Spieler garantieren ständig actiongeladene Einsätze.',
+                    icon: 'fa-users'
+                },
+                { 
+                    title: 'Aktives Support-Team', 
+                    description: 'Unser Team ist 24/7 für dich da und sorgt für ein faires Spielerlebnis.',
+                    icon: 'fa-headset'
+                },
+                { 
+                    title: 'Voice-Chat Only', 
+                    description: 'Nur mit Sprachchat für maximalen Realismus und bessere Kommunikation.',
+                    icon: 'fa-microphone'
+                },
+                { 
+                    title: 'Aktive Fraktionen', 
+                    description: 'Realistische Einsatzkräfte mit speziellen Fahrzeugen und Hierarchien.',
+                    icon: 'fa-sitemap'
+                }
+            ],
+            
+            changelogs: [
+                { id: 5, titel: 'Neue Häuser hinzugefügt', beschreibung: '5 neue Häuser für realistischere Einsätze.', datum: '15.10.2023' },
+                { id: 4, titel: 'Voice-Chat verbessert', beschreibung: 'Bessere Sprachqualität für klarere Kommunikation.', datum: '10.10.2023' },
+                { id: 3, titel: 'Neue Fahrzeuge', beschreibung: 'Feuerwehr-LKW, Polizei-Hubschrauber und Rettungswagen verfügbar.', datum: '05.10.2023' },
+                { id: 2, titel: 'Bugfixes', beschreibung: 'Behebung von Serverabstürzen.', datum: '01.10.2023' },
+                { id: 1, titel: 'Neue Fraktionen', beschreibung: 'THW-Fraktion hinzugefügt.', datum: '25.09.2023' }
+            ],
+            
+            regelwerk: `
+                <h3>1. Allgemeine Regeln</h3>
+                <ul>
+                    <li>Respektvoller Umgang mit allen Spielern ist Pflicht</li>
+                    <li>Keine rassistischen, sexistischen oder beleidigenden Äußerungen</li>
+                    <li>Cheats oder Exploits führen zu sofortigem Bann</li>
+                    <li>Kein Spamming in Chat oder Voice</li>
+                </ul>
+                <h3>2. Rollenspiel-Regeln</h3>
+                <ul>
+                    <li>Ernsthaftes und realistisches Rollenspiel</li>
+                    <li>Kein Powergaming (unerlaubte Vorteilsbeschaffung)</li>
+                    <li>Kein Metagaming (Nutzung von Wissen das die Figur nicht haben kann)</li>
+                    <li>Konsistentes Charakterspiel</li>
+                </ul>
+                <h3>3. Voice-Chat Regeln</h3>
+                <ul>
+                    <li>Voice-Chat nur für Rollenspielzwecke</li>
+                    <li>Störgeräusche vermeiden (Push-to-Talk empfohlen)</li>
+                    <li>Keine Musik oder Audio-Abspielungen</li>
+                    <li>Respektvolle Kommunikation</li>
+                </ul>
+            `
+        };
+
+        // ===== INITIALISIERUNG =====
         document.addEventListener('DOMContentLoaded', function() {
-            // Setze Farben aus der Konfiguration
-            document.documentElement.style.setProperty('--accent1', COLORS.accent1);
-            document.documentElement.style.setProperty('--accent2', COLORS.accent2);
+            console.log('Seite wird geladen...');
             
-            // Setze Seiteninformationen
-            document.getElementById('siteName').textContent = PAGE_CONFIG.siteName;
-            document.querySelector('.hero h1').textContent = PAGE_CONFIG.siteName;
-            document.querySelector('.hero p').textContent = PAGE_CONFIG.siteTagline;
-            document.getElementById('footerText').textContent = PAGE_CONFIG.footerText;
+            // Features laden
+            loadFeatures();
             
-            // Lade Features
-            const featuresGrid = document.querySelector('.features-grid');
-            SERVER_FEATURES.forEach((feature, index) => {
+            // Team laden
+            loadTeam();
+            
+            // Changelogs laden
+            loadChangelogs();
+            
+            // Regelwerk laden
+            loadRegelwerk();
+            
+            // Animationen
+            initAnimations();
+            
+            // Hash-based Navigation
+            handleHashNavigation();
+            
+            console.log('Seite erfolgreich geladen!');
+        });
+
+        // ===== FUNKTIONEN =====
+        function loadFeatures() {
+            const container = document.getElementById('featuresContainer');
+            if (!container) {
+                console.error('Features Container nicht gefunden!');
+                return;
+            }
+            
+            container.innerHTML = '';
+            CONFIG.features.forEach((feature, index) => {
                 const card = document.createElement('div');
-                card.className = `feature-card fade-in-element`;
-                card.style.transitionDelay = `${index * 0.1}s`;
+                card.className = 'feature-card fade-in';
                 card.innerHTML = `
                     <div class="feature-icon">
                         <i class="fas ${feature.icon}"></i>
@@ -1080,36 +872,49 @@
                     <h3>${feature.title}</h3>
                     <p>${feature.description}</p>
                 `;
-                featuresGrid.appendChild(card);
+                container.appendChild(card);
+                
+                // Verzögerte Animation
+                setTimeout(() => {
+                    card.style.transitionDelay = `${index * 0.1}s`;
+                    card.classList.add('visible');
+                }, 100);
             });
+        }
+
+        function loadTeam() {
+            const container = document.getElementById('teamContainer');
+            if (!container) return;
             
-            // Lade Team
-            const teamContainer = document.getElementById('teamContainer');
-            TEAM_MITGLIEDER.forEach((mitglied, index) => {
-                const member = document.createElement('div');
-                member.className = 'team-member';
-                member.style.animationDelay = `${index * 0.05}s`;
-                member.innerHTML = `
+            container.innerHTML = '';
+            CONFIG.teamMembers.forEach(member => {
+                const div = document.createElement('div');
+                div.className = 'team-member';
+                div.innerHTML = `
                     <div class="team-member-icon">
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="team-member-info">
-                        <div class="team-member-name">${mitglied.name}</div>
-                        <div class="team-member-rang">${mitglied.rang}</div>
+                        <div class="team-member-name">${member.name}</div>
+                        <div class="team-member-rang">${member.rang}</div>
                     </div>
                 `;
-                teamContainer.appendChild(member);
+                container.appendChild(div);
             });
+        }
+
+        function loadChangelogs() {
+            const container = document.getElementById('changelogsContainer');
+            if (!container) return;
             
-            // Lade Changelogs (sortiert nach ID absteigend)
-            const changelogsContainer = document.getElementById('changelogsContainer');
-            const sortedChangelogs = [...CHANGELOGS].sort((a, b) => b.id - a.id);
-            sortedChangelogs.forEach((changelog, index) => {
-                const item = document.createElement('div');
-                item.className = 'changelog-item';
-                item.setAttribute('data-id', changelog.id);
-                item.style.animationDelay = `${index * 0.05}s`;
-                item.innerHTML = `
+            container.innerHTML = '';
+            // Sortieren nach ID (höchste zuerst)
+            const sorted = [...CONFIG.changelogs].sort((a, b) => b.id - a.id);
+            
+            sorted.forEach(changelog => {
+                const div = document.createElement('div');
+                div.className = 'changelog-item';
+                div.innerHTML = `
                     <div class="changelog-header">
                         <div class="changelog-title">${changelog.titel}</div>
                         <div class="changelog-date">${changelog.datum}</div>
@@ -1118,253 +923,173 @@
                         ${changelog.beschreibung}
                     </div>
                 `;
-                changelogsContainer.appendChild(item);
+                container.appendChild(div);
             });
+        }
+
+        function loadRegelwerk() {
+            const container = document.getElementById('regelwerkContainer');
+            if (!container) return;
             
-            // Lade Regelwerk
-            document.getElementById('regelwerkContainer').innerHTML = REGELWERK_HTML;
-            
-            // Discord Links setzen
-            document.getElementById('discordBtn').href = DISCORD_INVITE_URL;
-            document.getElementById('discordBtn').target = '_blank';
-            document.getElementById('discordBtn').rel = 'noopener noreferrer';
-            
-            document.getElementById('discordFooterBtn').href = DISCORD_INVITE_URL;
-            document.getElementById('discordFooterBtn').target = '_blank';
-            document.getElementById('discordFooterBtn').rel = 'noopener noreferrer';
-            
-            // Scroll-Animationen
+            container.innerHTML = CONFIG.regelwerk;
+        }
+
+        function initAnimations() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
                     }
                 });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            });
+            }, { threshold: 0.1 });
             
-            document.querySelectorAll('.fade-in-element').forEach(el => observer.observe(el));
-            
-            // Header Scroll Effekt
-            window.addEventListener('scroll', () => {
-                const header = document.querySelector('header');
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
-            
-            // Modal Handling
-            const modals = {
-                team: document.getElementById('teamModal'),
-                changelogs: document.getElementById('changelogsModal'),
-                regelwerk: document.getElementById('regelwerkModal'),
-                feedback: document.getElementById('feedbackModal')
-            };
-            
-            // Öffne Modal Funktion
-            function openModal(modalId) {
-                // Schließe alle anderen Modals
-                Object.values(modals).forEach(modal => {
-                    modal.classList.remove('active');
-                });
-                
-                // Öffne das gewünschte Modal
-                modals[modalId].classList.add('active');
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        }
+
+        // ===== MODAL FUNKTIONEN =====
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
                 
-                // Setze URL Hash
-                window.history.pushState({}, '', `#${modalId}`);
+                // URL Hash setzen
+                window.location.hash = modalId;
             }
-            
-            // Schließe Modal Funktion
-            function closeModal(modalId) {
-                modals[modalId].classList.remove('active');
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
                 document.body.style.overflow = 'auto';
                 
-                // Entferne URL Hash
+                // URL Hash entfernen
                 if (window.location.hash === `#${modalId}`) {
-                    window.history.pushState({}, '', window.location.pathname);
+                    window.location.hash = '';
                 }
             }
+        }
+
+        function handleHashNavigation() {
+            const hash = window.location.hash.replace('#', '');
+            const validModals = ['teamModal', 'changelogsModal', 'regelwerkModal', 'feedbackModal'];
             
-            // Event Listener für Modal Links
-            document.querySelectorAll('[data-modal]').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const modalId = link.getAttribute('data-modal');
-                    openModal(modalId);
-                    
-                    // Aktiviere Navigation
-                    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-                    link.classList.add('active');
-                });
-            });
+            if (validModals.includes(hash)) {
+                setTimeout(() => openModal(hash), 100);
+            }
+        }
+
+        // ===== DISCORD FUNKTION =====
+        function openDiscord() {
+            window.open(CONFIG.discordInvite, '_blank');
+        }
+
+        // ===== FEEDBACK FUNKTIONEN =====
+        let cooldownEnd = localStorage.getItem('feedbackCooldown');
+        let cooldownInterval;
+
+        function updateCooldown() {
+            if (!cooldownEnd) return;
             
-            // Event Listener für Close Buttons
-            document.querySelectorAll('[data-close]').forEach(button => {
-                button.addEventListener('click', () => {
-                    const modalId = button.getAttribute('data-close');
-                    closeModal(modalId);
-                });
-            });
+            const now = Date.now();
+            const timeLeft = Math.max(0, cooldownEnd - now);
             
-            // Schließe Modal bei Klick außerhalb
-            Object.entries(modals).forEach(([id, modal]) => {
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        closeModal(id);
-                    }
-                });
-            });
-            
-            // Schließe Modal mit Escape
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    Object.keys(modals).forEach(id => {
-                        if (modals[id].classList.contains('active')) {
-                            closeModal(id);
-                        }
-                    });
-                }
-            });
-            
-            // Hash basierte Navigation
-            function handleHash() {
-                const hash = window.location.hash.replace('#', '');
-                if (modals[hash]) {
-                    openModal(hash);
-                }
+            if (timeLeft <= 0) {
+                localStorage.removeItem('feedbackCooldown');
+                document.getElementById('cooldownNotice').style.display = 'none';
+                document.getElementById('submitBtn').disabled = false;
+                clearInterval(cooldownInterval);
+                return;
             }
             
-            window.addEventListener('hashchange', handleHash);
-            handleHash(); // Initialer Check
+            const minutes = Math.floor(timeLeft / 60000);
+            const seconds = Math.floor((timeLeft % 60000) / 1000);
+            document.getElementById('cooldownTimer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('cooldownNotice').style.display = 'block';
+            document.getElementById('submitBtn').disabled = true;
+        }
+
+        // Cooldown checken
+        if (cooldownEnd) {
+            cooldownEnd = parseInt(cooldownEnd);
+            updateCooldown();
+            cooldownInterval = setInterval(updateCooldown, 1000);
+        }
+
+        function submitFeedback(event) {
+            event.preventDefault();
             
-            // Feedback System
-            const feedbackForm = document.getElementById('feedbackForm');
+            const username = document.getElementById('username').value || 'Anonym';
+            const message = document.getElementById('message').value;
             const submitBtn = document.getElementById('submitBtn');
-            const cooldownNotice = document.getElementById('cooldownNotice');
             const formStatus = document.getElementById('formStatus');
-            const cooldownTimer = document.getElementById('cooldownTimer');
             
-            // Cooldown System
-            let cooldownEnd = localStorage.getItem('feedbackCooldown');
-            let cooldownInterval;
-            
-            function updateCooldown() {
-                if (!cooldownEnd) return;
-                
-                const now = Date.now();
-                const timeLeft = Math.max(0, cooldownEnd - now);
-                
-                if (timeLeft <= 0) {
-                    localStorage.removeItem('feedbackCooldown');
-                    cooldownNotice.style.display = 'none';
-                    submitBtn.disabled = false;
-                    clearInterval(cooldownInterval);
-                    return;
-                }
-                
-                const minutes = Math.floor(timeLeft / 60000);
-                const seconds = Math.floor((timeLeft % 60000) / 1000);
-                cooldownTimer.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-                cooldownNotice.style.display = 'flex';
-                submitBtn.disabled = true;
+            if (!message.trim()) {
+                showStatus('Bitte gib eine Nachricht ein.', 'error');
+                return;
             }
             
-            if (cooldownEnd) {
-                cooldownEnd = parseInt(cooldownEnd);
+            // Button deaktivieren
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Wird gesendet...';
+            
+            // Simuliere API-Call (in der Praxis: fetch() zu deiner Webhook)
+            setTimeout(() => {
+                // Erfolgreich
+                showStatus('Vielen Dank! Dein Feedback wurde gesendet.', 'success');
+                document.getElementById('feedbackForm').reset();
+                
+                // Cooldown setzen (5 Minuten)
+                cooldownEnd = Date.now() + 5 * 60 * 1000;
+                localStorage.setItem('feedbackCooldown', cooldownEnd.toString());
                 updateCooldown();
                 cooldownInterval = setInterval(updateCooldown, 1000);
+                
+                // Button zurücksetzen
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Feedback senden';
+                
+                // Modal nach 2 Sekunden schließen
+                setTimeout(() => {
+                    closeModal('feedbackModal');
+                }, 2000);
+            }, 1500);
+        }
+
+        function showStatus(message, type) {
+            const formStatus = document.getElementById('formStatus');
+            formStatus.textContent = message;
+            formStatus.className = `form-status ${type}`;
+            formStatus.style.display = 'block';
+            
+            setTimeout(() => {
+                formStatus.style.display = 'none';
+            }, 5000);
+        }
+
+        // ===== GLOBAL EVENTS =====
+        // Schließe Modal mit Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal.active');
+                modals.forEach(modal => {
+                    const modalId = modal.id;
+                    closeModal(modalId);
+                });
             }
-            
-            // Form Submission
-            feedbackForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                
-                const username = document.getElementById('username').value.trim() || 'Anonym';
-                const message = document.getElementById('message').value.trim();
-                
-                if (!message) {
-                    showStatus('Bitte gib eine Nachricht ein.', 'error');
-                    return;
-                }
-                
-                // Button state
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 10px;"></i> Wird gesendet...';
-                
-                try {
-                    // Discord Webhook senden
-                    if (DISCORD_WEBHOOK_URL !== 'DEINE_DISCORD_WEBHOOK_URL_HIER') {
-                        const payload = {
-                            content: `**Neues Feedback von ${username}**\n\n${message}`,
-                            username: 'Gaming Life Feedback',
-                            avatar_url: 'https://cdn.discordapp.com/embed/avatars/0.png'
-                        };
-                        
-                        await fetch(DISCORD_WEBHOOK_URL, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(payload)
-                        });
-                    }
-                    
-                    // Erfolg
-                    showStatus('Vielen Dank! Dein Feedback wurde erfolgreich gesendet.', 'success');
-                    feedbackForm.reset();
-                    
-                    // Cooldown setzen (5 Minuten)
-                    cooldownEnd = Date.now() + 5 * 60 * 1000;
-                    localStorage.setItem('feedbackCooldown', cooldownEnd.toString());
-                    updateCooldown();
-                    cooldownInterval = setInterval(updateCooldown, 1000);
-                    
-                    // Modal nach 3 Sekunden schließen
-                    setTimeout(() => {
-                        closeModal('feedback');
-                        // Reset nach Modal schließen
-                        setTimeout(() => {
-                            submitBtn.disabled = false;
-                            submitBtn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right: 10px;"></i> Feedback senden';
-                            formStatus.style.display = 'none';
-                        }, 300);
-                    }, 3000);
-                    
-                } catch (error) {
-                    showStatus('Fehler beim Senden. Bitte versuche es später erneut.', 'error');
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right: 10px;"></i> Feedback senden';
-                }
-            });
-            
-            function showStatus(message, type) {
-                formStatus.textContent = message;
-                formStatus.className = `form-status ${type}`;
-            }
-            
-            // Smooth Scrolling für interne Links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                if (!anchor.hasAttribute('data-modal')) {
-                    anchor.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const targetId = this.getAttribute('href');
-                        if (targetId === '#') return;
-                        
-                        const targetElement = document.querySelector(targetId);
-                        if (targetElement) {
-                            window.scrollTo({
-                                top: targetElement.offsetTop - 100,
-                                behavior: 'smooth'
-                            });
-                        }
-                    });
+        });
+
+        // Schließe Modal bei Klick außerhalb
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal(modal.id);
                 }
             });
         });
+
+        // Hash Change Listener
+        window.addEventListener('hashchange', handleHashNavigation);
     </script>
 </body>
 </html>
