@@ -1,35 +1,20 @@
 // =========================
 // GAMING LIFE KONFIGURATION
+// HIER ALLES EINSTELLEN!
 // =========================
 
 // Discord Webhook URL für Feedback
-const DISCORD_WEBHOOK_URL = 'https://discordapp.com/api/webhooks/1449034993371189381/RtVDdhc2o8nGoDcdG4M_HuaC-sIHh3joYRcgSQTOxnf8Bw76eTqE4xAMGjgbwom3gPNc';
+const DISCORD_WEBHOOK_URL = 'DEINE_DISCORD_WEBHOOK_URL_HIER';
 
 // Discord Server Einladungslink
 const DISCORD_INVITE_URL = 'https://discord.gg/DEIN_LINK_HIER';
 
-// Externe Links
-const EXTERNAL_LINKS = {
-    regelwerk: '#regelwerk',
-    tutorials: '#',
-    team: '#team',
-    serverBeitreten: 'https://www.roblox.com/games/',
-    hilfe: '#',
-    kontakt: '#',
-    datenschutz: '#',
-    youtube: 'https://youtube.com',
-    robloxGruppe: 'https://www.roblox.com/groups/'
+// Seiten-Konfiguration
+const PAGE_CONFIG = {
+    siteName: 'Gaming Life',
+    siteTagline: 'Der beste Notruf-Emden-Server mit Voice-Chat',
+    footerText: '© 2023 Gaming Life RP Server. Alle Rechte vorbehalten. Roblox ist eine eingetragene Marke von Roblox Corporation.'
 };
-
-// Team Mitglieder Liste
-const TEAM_MITGLIEDER = [
-    { name: 'GL Dalex', rang: 'Projektinhaber' },
-    { name: 'GL Henri', rang: 'Stv.Projektinhaber' },
-    { name: 'GL Raffa', rang: 'Projektleitung' },
-    { name: 'GL Almin', rang: 'Stv.Projektleitung' },
-    { name: 'GL Happycat', rang: 'Head of Direktion' },
-    { name: 'GL Kjell (joke)', rang: 'Roblox Admin' }
-];
 
 // Server Features
 const SERVER_FEATURES = [
@@ -53,6 +38,16 @@ const SERVER_FEATURES = [
         description: 'Realistische Einsatzkräfte mit speziellen Fahrzeugen und Hierarchien.',
         icon: 'fa-sitemap'
     }
+];
+
+// Team Mitglieder Liste
+const TEAM_MITGLIEDER = [
+    { name: 'Max Mustermann', rang: 'Server-Inhaber' },
+    { name: 'Lisa Beispiel', rang: 'Head-Admin' },
+    { name: 'Tom Test', rang: 'Admin' },
+    { name: 'Anna Admin', rang: 'Admin' },
+    { name: 'Paul Moderator', rang: 'Moderator' },
+    { name: 'Sarah Supporter', rang: 'Supporter' }
 ];
 
 // Changelog Einträge (ID muss immer höher sein für neue Einträge)
@@ -89,7 +84,7 @@ const CHANGELOGS = [
     }
 ];
 
-// Regelwerk (HTML-Format)
+// Regelwerk (HTML-Format - kann beliebig erweitert werden)
 const REGELWERK_HTML = `
 <h3>1. Allgemeine Regeln</h3>
 <ul>
@@ -122,10 +117,3 @@ const REGELWERK_HTML = `
     <li>Fraktionsspezifische Regeln beachten</li>
 </ul>
 `;
-
-// Seiten-Konfiguration
-const PAGE_CONFIG = {
-    siteName: 'Gaming Life',
-    siteTagline: 'Der beste Notruf-Emden-Server mit Voice-Chat',
-    footerText: '© 2023 Gaming Life RP Server. Alle Rechte vorbehalten. Roblox ist eine eingetragene Marke von Roblox Corporation.'
-};
