@@ -42,50 +42,14 @@ const SERVER_FEATURES = [
 
 // Team Mitglieder Liste
 const TEAM_MITGLIEDER = [
-    // Projektinhaber
-    { name: 'GL PI/OWNER | Dalex', rang: 'Projektinhaber' },
-    
-    // Stv. Projektinhaber
-    { name: 'GL Henri', rang: 'Stv. Projektinhaber' },
-    
-    // Projektleitung
-    { name: 'GL Raffa', rang: 'Projektleitung' },
-    
-    // Stv. Projektleitung
-    { name: 'GL Almin', rang: 'Stv. Projektleitung' },
-    
-    // Head of Direktion
-    { name: 'GL Happycat', rang: 'Head of Direktion' },
-    
-    // Direktor
-    { name: 'GL Leon', rang: 'Direktor' },
-    
-    // Teamleitung
-    { name: 'GL TL OG_Tayson', rang: 'Teamleitung' },
-    
-    // Manager
-    { name: 'GL Anwalt', rang: 'Manager' },
-    
-    // Senior Administrator
-    { name: 'GL Dominic', rang: 'Senior Administrator' },
-    { name: 'GL Joel (Herr Oleke)', rang: 'Senior Administrator' },
-    
-    // Administrator
-    { name: 'GL Max', rang: 'Administrator' },
-    
-    // Junior Moderator
-    { name: 'GL frd_le0n', rang: 'Junior Moderator' },
-    { name: 'GL Simi', rang: 'Junior Moderator' },
-    
-    // Test Moderator
-    { name: 'GL Azadi', rang: 'Test Moderator' },
-    { name: 'GL Gennaro', rang: 'Test Moderator' },
-    { name: 'GL Marcbappe', rang: 'Test Moderator' },
-    { name: 'GL Lulu', rang: 'Test Moderator' },
-    { name: 'GL Leon🎄', rang: 'Test Moderator' },
-    { name: 'GL Ela', rang: 'Test Moderator' },
-    { name: 'GL Ruzo', rang: 'Test Moderator' }
+    { name: 'Max Mustermann', rang: 'Server-Inhaber' },
+    { name: 'Lisa Beispiel', rang: 'Head-Admin' },
+    { name: 'Tom Test', rang: 'Admin' },
+    { name: 'Anna Admin', rang: 'Admin' },
+    { name: 'Paul Moderator', rang: 'Moderator' },
+    { name: 'Sarah Supporter', rang: 'Supporter' }
 ];
+
 // Changelog Einträge (ID muss immer höher sein für neue Einträge)
 const CHANGELOGS = [
     { 
