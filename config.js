@@ -70,6 +70,10 @@ const TEAM_MITGLIEDER = [
 
     
     // Administrator
+
+    
+    // Moderator
+    { name: 'GL Jojo', rang: 'Moderator' },
     
     // Junior Moderator
     //
