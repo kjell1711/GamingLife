@@ -23,10 +23,11 @@
             --success: #00cc88;
             --warning: #ffaa00;
             --error: #ff3366;
-            --border-radius: 16px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.2);
+            --border-radius: 20px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            --shadow-light: 0 10px 20px rgba(0, 0, 0, 0.2);
+            --gradient: linear-gradient(135deg, var(--accent1), var(--accent2));
         }
 
         * {
@@ -35,12 +36,22 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--primary);
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(138, 43, 226, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 100% 0%, rgba(65, 105, 225, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(138, 43, 226, 0.02) 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(65, 105, 225, 0.02) 0%, transparent 50%),
+                var(--primary);
         }
 
         .container {
@@ -54,39 +65,46 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: rgba(10, 10, 15, 0.95);
-            backdrop-filter: blur(15px);
+            background-color: rgba(10, 10, 15, 0.98);
+            backdrop-filter: blur(20px);
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        header.scrolled {
+            padding: 5px 0;
+            background-color: rgba(10, 10, 15, 0.95);
         }
 
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 0;
+            padding: 22px 0;
+            transition: all 0.4s ease;
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             text-decoration: none;
             transition: var(--transition);
+            letter-spacing: -0.5px;
         }
 
         .logo:hover {
             transform: scale(1.05);
+            filter: brightness(1.2);
         }
 
         .nav-links {
             display: flex;
-            gap: 25px;
+            gap: 30px;
         }
 
         .nav-links a {
@@ -95,14 +113,32 @@
             font-weight: 500;
             font-size: 1rem;
             transition: var(--transition);
-            padding: 10px 15px;
-            border-radius: 10px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0.1;
+            transition: left 0.4s ease;
         }
 
         .nav-links a:hover {
             color: var(--text-primary);
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(255, 255, 255, 0.03);
             transform: translateY(-2px);
+        }
+
+        .nav-links a:hover::before {
+            left: 0;
         }
 
         .nav-links a.active {
@@ -112,98 +148,122 @@
 
         /* Hero Section */
         .hero {
-            padding: 180px 0 120px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
+            position: relative;
+            padding: 120px 0 80px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(65, 105, 225, 0.1) 0%, transparent 40%);
+            z-index: -1;
+            animation: pulse 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.5; }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 5.5rem;
+            font-weight: 900;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 30px;
+            line-height: 1;
+            letter-spacing: -1px;
+            animation: float 6s ease-in-out infinite;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            font-weight: 300;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 22px 48px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.3);
             position: relative;
             overflow: hidden;
         }
 
-        .hero-bg {
+        .cta-button::after {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 30% 20%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 80%, rgba(65, 105, 225, 0.1) 0%, transparent 50%);
-            z-index: -1;
+            background: linear-gradient(135deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
         }
 
-        .hero h1 {
-            font-size: 4.5rem;
-            font-weight: 800;
-            background: linear-gradient(90deg, var(--accent1), var(--accent2));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 20px;
-            letter-spacing: -0.5px;
-            line-height: 1.1;
-            animation: float 6s ease-in-out infinite;
+        .cta-button:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(138, 43, 226, 0.4);
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto 40px;
-        }
-
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--card-bg);
-            color: var(--text-primary);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 16px 32px;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            text-align: center;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .btn:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow);
-            background-color: var(--hover-bg);
-            border-color: rgba(138, 43, 226, 0.3);
-        }
-
-        .btn-primary {
-            background: linear-gradient(90deg, var(--accent1), var(--accent2));
-            border: none;
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.3);
+        .cta-button:hover::after {
+            transform: translateX(100%);
         }
 
         /* Features Section */
         .features {
-            padding: 100px 0;
+            padding: 150px 0;
+            position: relative;
         }
 
         .section-title {
-            font-size: 2.5rem;
+            font-size: 3.5rem;
             text-align: center;
-            margin-bottom: 60px;
-            font-weight: 700;
+            margin-bottom: 100px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
             position: relative;
             display: inline-block;
             left: 50%;
@@ -213,34 +273,33 @@
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
             height: 4px;
-            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            background: var(--gradient);
             border-radius: 2px;
         }
 
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
+            gap: 40px;
+            perspective: 1000px;
         }
 
         .feature-card {
-            background-color: var(--card-bg);
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
             border-radius: var(--border-radius);
-            padding: 35px;
-            transition: var(--transition);
+            padding: 50px 40px;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid rgba(255, 255, 255, 0.05);
             position: relative;
             overflow: hidden;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow);
-            border-color: rgba(138, 43, 226, 0.2);
+            transform-style: preserve-3d;
+            transform: translateZ(0);
         }
 
         .feature-card::before {
@@ -249,26 +308,49 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-20px) scale(1.03) rotateX(5deg);
+            box-shadow: var(--shadow);
+            border-color: rgba(138, 43, 226, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .feature-card:hover::before {
+            opacity: 0.1;
         }
 
         .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            background: var(--gradient);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2) rotate(5deg);
         }
 
         .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 700;
         }
 
         .feature-card p {
             color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
         }
 
         /* Modals */
@@ -279,76 +361,109 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.9);
             z-index: 2000;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal-content {
-            background-color: var(--card-bg);
+            background: var(--card-bg);
             border-radius: var(--border-radius);
             width: 90%;
-            max-width: 800px;
-            max-height: 80vh;
+            max-width: 900px;
+            max-height: 85vh;
             overflow-y: auto;
-            padding: 40px;
+            padding: 60px;
             position: relative;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: var(--shadow);
-            animation: modalFadeIn 0.3s ease-out;
+            transform: translateY(50px) scale(0.9);
+            opacity: 0;
+            animation: modalSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards;
         }
 
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes modalSlideIn {
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
         }
 
         .close-modal {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
+            top: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.05);
             border: none;
             color: var(--text-secondary);
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
             transition: var(--transition);
             z-index: 10;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .close-modal:hover {
             color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
         }
 
         /* Team Modal */
         .team-list {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-top: 30px;
+            gap: 20px;
+            margin-top: 40px;
         }
 
         .team-member {
             display: flex;
             align-items: center;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
+            padding: 25px 30px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
             border-left: 4px solid var(--accent1);
             transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .team-member:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(10px);
+            border-color: rgba(138, 43, 226, 0.3);
         }
 
         .team-member-icon {
-            font-size: 1.5rem;
-            margin-right: 15px;
+            font-size: 2rem;
+            margin-right: 20px;
             color: var(--accent1);
+            background: rgba(138, 43, 226, 0.1);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .team-member-info {
@@ -357,81 +472,147 @@
 
         .team-member-name {
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
+            margin-bottom: 5px;
         }
 
         .team-member-rang {
             color: var(--accent2);
-            font-size: 0.9rem;
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         /* Changelog Modal */
         .changelog-list {
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            margin-top: 30px;
+            gap: 25px;
+            margin-top: 40px;
         }
 
         .changelog-item {
-            background-color: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            padding: 30px;
             border-left: 4px solid var(--accent2);
             transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .changelog-item::before {
+            content: attr(data-id);
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.03);
+            z-index: 0;
         }
 
         .changelog-item:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(10px);
+            border-color: rgba(65, 105, 225, 0.3);
         }
 
         .changelog-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
         }
 
         .changelog-title {
-            font-weight: 600;
-            font-size: 1.2rem;
+            font-weight: 700;
+            font-size: 1.5rem;
             color: var(--text-primary);
         }
 
         .changelog-date {
             color: var(--accent1);
-            font-size: 0.9rem;
-            background-color: rgba(138, 43, 226, 0.1);
-            padding: 5px 10px;
-            border-radius: 5px;
+            font-size: 1rem;
+            background: rgba(138, 43, 226, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            white-space: nowrap;
         }
 
         .changelog-description {
             color: var(--text-secondary);
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Regelwerk Modal */
+        .regelwerk-content {
+            margin-top: 40px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .regelwerk-content h3 {
+            color: var(--accent1);
+            margin: 30px 0 15px 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .regelwerk-content h3:first-child {
+            margin-top: 0;
+        }
+
+        .regelwerk-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .regelwerk-content li {
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.7;
+        }
+
+        .regelwerk-content li::before {
+            content: '•';
+            color: var(--accent2);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
         }
 
         /* Feedback Modal */
         .feedback-form {
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 500;
+            color: var(--text-secondary);
         }
 
         .form-control {
             width: 100%;
-            padding: 14px;
-            background-color: rgba(255, 255, 255, 0.05);
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            border-radius: 12px;
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
             font-size: 1rem;
@@ -441,71 +622,95 @@
         .form-control:focus {
             outline: none;
             border-color: var(--accent1);
+            background: rgba(255, 255, 255, 0.05);
             box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.1);
         }
 
         textarea.form-control {
-            min-height: 120px;
+            min-height: 150px;
             resize: vertical;
         }
 
-        .btn-block {
+        .btn-submit {
             width: 100%;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.3);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         .cooldown-notice {
-            margin-top: 15px;
-            padding: 10px;
-            background-color: rgba(255, 170, 0, 0.1);
-            border-radius: 8px;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 170, 0, 0.1);
+            border-radius: 10px;
             color: var(--warning);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             display: none;
+            align-items: center;
+            gap: 10px;
         }
 
         .form-status {
             margin-top: 20px;
-            padding: 15px;
+            padding: 20px;
             border-radius: 10px;
             text-align: center;
             display: none;
+            animation: fadeIn 0.3s ease;
         }
 
         .form-status.success {
-            background-color: rgba(0, 204, 136, 0.1);
+            background: rgba(0, 204, 136, 0.1);
             color: var(--success);
             display: block;
         }
 
         .form-status.error {
-            background-color: rgba(255, 51, 102, 0.1);
+            background: rgba(255, 51, 102, 0.1);
             color: var(--error);
             display: block;
         }
 
         /* Footer */
         footer {
-            background-color: var(--secondary);
-            padding: 60px 0 30px;
+            background: var(--secondary);
+            padding: 80px 0 40px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
-            margin-top: 80px;
+            margin-top: 100px;
         }
 
         .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 40px;
-            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 60px;
         }
 
         .footer-section h3 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            background: var(--gradient);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            font-weight: 700;
         }
 
         .footer-links {
@@ -513,7 +718,7 @@
         }
 
         .footer-links li {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
         .footer-links a {
@@ -522,7 +727,8 @@
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-size: 1rem;
         }
 
         .footer-links a:hover {
@@ -533,115 +739,51 @@
         .social-links {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 25px;
         }
 
         .social-links a {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 45px;
-            height: 45px;
-            background-color: var(--card-bg);
-            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
             color: var(--text-secondary);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             transition: var(--transition);
         }
 
         .social-links a:hover {
-            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            background: var(--gradient);
             color: white;
             transform: translateY(-5px);
         }
 
         .copyright {
             text-align: center;
-            padding-top: 30px;
+            padding-top: 40px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-                background: none;
-                border: none;
-                color: var(--text-primary);
-                font-size: 1.5rem;
-                cursor: pointer;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                flex-direction: column;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn {
-                width: 100%;
-                max-width: 300px;
-            }
-            
-            .team-member {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .team-member-icon {
-                margin-right: 0;
-                margin-bottom: 10px;
-            }
-            
-            .changelog-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-        }
-
-        /* Animationen */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate {
-            animation: fadeInUp 0.8s ease-out forwards;
+        /* Scroll Animation */
+        .fade-in-element {
             opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
 
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
+        .fade-in-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* Scrollbar */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 12px;
         }
 
         ::-webkit-scrollbar-track {
@@ -649,8 +791,9 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(var(--accent1), var(--accent2));
-            border-radius: 5px;
+            background: var(--gradient);
+            border-radius: 6px;
+            border: 3px solid var(--primary);
         }
         
         .modal-content::-webkit-scrollbar {
@@ -663,8 +806,85 @@
         }
         
         .modal-content::-webkit-scrollbar-thumb {
-            background: linear-gradient(var(--accent1), var(--accent2));
+            background: var(--gradient);
             border-radius: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+            
+            .section-title {
+                font-size: 2.8rem;
+            }
+            
+            .feature-card {
+                padding: 40px 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 60px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .modal-content {
+                padding: 40px 25px;
+                width: 95%;
+            }
+            
+            .changelog-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .changelog-date {
+                align-self: flex-start;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cta-button {
+                padding: 18px 36px;
+                font-size: 1rem;
+            }
+            
+            .feature-card {
+                padding: 30px 20px;
+            }
+            
+            .modal-content {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
@@ -673,15 +893,13 @@
     <header>
         <div class="container">
             <nav>
-                <a href="#" class="logo">
-                    Gaming Life
-                </a>
+                <a href="#home" class="logo">Gaming Life</a>
                 <div class="nav-links">
                     <a href="#home" class="active">Start</a>
-                    <a href="#" id="teamBtn">Unser Team</a>
-                    <a href="#" id="changelogsBtn">Changelogs</a>
-                    <a href="#" class="external-link" data-link="regelwerk">Regelwerk</a>
-                    <a href="#" id="feedbackBtn">Feedback</a>
+                    <a href="#" data-modal="team">Unser Team</a>
+                    <a href="#" data-modal="changelogs">Changelogs</a>
+                    <a href="#" data-modal="regelwerk">Regelwerk</a>
+                    <a href="#" data-modal="feedback">Feedback</a>
                 </div>
             </nav>
         </div>
@@ -689,14 +907,12 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-bg"></div>
         <div class="container">
-            <h1 class="animate" id="siteName">Gaming Life</h1>
-            <p class="animate delay-1" id="siteTagline">Der beste Notruf-Emden-Server mit Voice-Chat</p>
-            
-            <div class="cta-buttons animate delay-2">
-                <a href="#" class="btn btn-primary" id="discordBtn">
-                    <i class="fab fa-discord" style="margin-right: 10px;"></i>
+            <div class="hero-content">
+                <h1 class="fade-in-element">Gaming Life</h1>
+                <p class="fade-in-element">Der beste Notruf-Emden-Server mit Voice-Chat</p>
+                <a href="#" class="cta-button fade-in-element" id="discordBtn">
+                    <i class="fab fa-discord" style="margin-right: 12px;"></i>
                     Discord beitreten
                 </a>
             </div>
@@ -704,10 +920,10 @@
     </section>
 
     <!-- Features Section -->
-    <section class="features">
+    <section class="features" id="features">
         <div class="container">
-            <h2 class="section-title animate">Server Features</h2>
-            <div class="features-grid" id="featuresContainer">
+            <h2 class="section-title fade-in-element">Server Features</h2>
+            <div class="features-grid">
                 <!-- Features werden via JavaScript eingefügt -->
             </div>
         </div>
@@ -716,11 +932,11 @@
     <!-- Team Modal -->
     <div class="modal" id="teamModal">
         <div class="modal-content">
-            <button class="close-modal" id="closeTeamModal">
+            <button class="close-modal" data-close="teamModal">
                 <i class="fas fa-times"></i>
             </button>
-            <h2 style="margin-bottom: 10px;">Unser Team</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 20px;">
+            <h2 style="margin-bottom: 15px;">Unser Team</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 30px;">
                 Das engagierte Team hinter Gaming Life, das täglich dafür sorgt, dass der Server reibungslos läuft.
             </p>
             
@@ -733,11 +949,11 @@
     <!-- Changelogs Modal -->
     <div class="modal" id="changelogsModal">
         <div class="modal-content">
-            <button class="close-modal" id="closeChangelogsModal">
+            <button class="close-modal" data-close="changelogsModal">
                 <i class="fas fa-times"></i>
             </button>
-            <h2 style="margin-bottom: 10px;">Changelogs</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 20px;">
+            <h2 style="margin-bottom: 15px;">Changelogs</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 30px;">
                 Alle wichtigen Updates und Änderungen auf dem Gaming Life Server.
             </p>
             
@@ -747,14 +963,31 @@
         </div>
     </div>
 
+    <!-- Regelwerk Modal -->
+    <div class="modal" id="regelwerkModal">
+        <div class="modal-content">
+            <button class="close-modal" data-close="regelwerkModal">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 style="margin-bottom: 15px;">Regelwerk</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 30px;">
+                Bitte halte dich an die folgenden Regeln, um ein angenehmes Spielerlebnis für alle zu gewährleisten.
+            </p>
+            
+            <div class="regelwerk-content" id="regelwerkContainer">
+                <!-- Regelwerk wird via JavaScript eingefügt -->
+            </div>
+        </div>
+    </div>
+
     <!-- Feedback Modal -->
     <div class="modal" id="feedbackModal">
         <div class="modal-content">
-            <button class="close-modal" id="closeFeedbackModal">
+            <button class="close-modal" data-close="feedbackModal">
                 <i class="fas fa-times"></i>
             </button>
-            <h2 style="margin-bottom: 10px;">Feedback senden</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 20px;">
+            <h2 style="margin-bottom: 15px;">Feedback senden</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 30px;">
                 Teile uns deine Meinung, Vorschläge oder Probleme mit. Dein Feedback wird direkt an unser Team gesendet.
             </p>
             
@@ -769,13 +1002,13 @@
                     <textarea id="message" class="form-control" placeholder="Beschreibe dein Feedback ausführlich..." required></textarea>
                 </div>
                 
-                <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
-                    <i class="fas fa-paper-plane" style="margin-right: 8px;"></i>
+                <button type="submit" class="btn-submit" id="submitBtn">
+                    <i class="fas fa-paper-plane" style="margin-right: 10px;"></i>
                     Feedback senden
                 </button>
                 
                 <div class="cooldown-notice" id="cooldownNotice">
-                    <i class="fas fa-clock" style="margin-right: 8px;"></i>
+                    <i class="fas fa-clock"></i>
                     Du kannst erst wieder in <span id="cooldownTimer">5:00</span> Minuten Feedback senden.
                 </div>
                 
@@ -790,7 +1023,9 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Gaming Life</h3>
-                    <p>Der führende RP-Server auf Roblox Notruf Emden mit aktiver Community und Voice-Chat.</p>
+                    <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px;">
+                        Der führende RP-Server auf Roblox Notruf Emden mit aktiver Community und Voice-Chat.
+                    </p>
                     <div class="social-links">
                         <a href="#" id="discordFooterBtn" title="Discord">
                             <i class="fab fa-discord"></i>
@@ -801,17 +1036,10 @@
                 <div class="footer-section">
                     <h3>Wichtige Links</h3>
                     <ul class="footer-links">
-                        <li><a href="#" id="teamFooterBtn"><i class="fas fa-users-cog"></i> Unser Team</a></li>
-                        <li><a href="#" id="changelogsFooterBtn"><i class="fas fa-clipboard-list"></i> Changelogs</a></li>
-                        <li><a href="#" class="external-link" data-link="regelwerk"><i class="fas fa-book"></i> Regelwerk</a></li>
-                        <li><a href="#" id="feedbackFooterBtn"><i class="fas fa-comment"></i> Feedback</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Rechtliches</h3>
-                    <ul class="footer-links">
-                        <li><a href="#" class="external-link" data-link="datenschutz"><i class="fas fa-shield-alt"></i> Datenschutz</a></li>
+                        <li><a href="#" data-modal="team"><i class="fas fa-users-cog"></i> Unser Team</a></li>
+                        <li><a href="#" data-modal="changelogs"><i class="fas fa-clipboard-list"></i> Changelogs</a></li>
+                        <li><a href="#" data-modal="regelwerk"><i class="fas fa-book"></i> Regelwerk</a></li>
+                        <li><a href="#" data-modal="feedback"><i class="fas fa-comment"></i> Feedback</a></li>
                     </ul>
                 </div>
             </div>
@@ -828,36 +1056,39 @@
         // =========================
         
         document.addEventListener('DOMContentLoaded', function() {
-            // Farben auf Konfiguration setzen
+            // Setze Farben aus der Konfiguration
             document.documentElement.style.setProperty('--accent1', COLORS.accent1);
             document.documentElement.style.setProperty('--accent2', COLORS.accent2);
             
-            // Seiten-Titel und Tagline setzen
+            // Setze Seiteninformationen
             document.getElementById('siteName').textContent = PAGE_CONFIG.siteName;
-            document.getElementById('siteTagline').textContent = PAGE_CONFIG.siteTagline;
+            document.querySelector('.hero h1').textContent = PAGE_CONFIG.siteName;
+            document.querySelector('.hero p').textContent = PAGE_CONFIG.siteTagline;
             document.getElementById('footerText').textContent = PAGE_CONFIG.footerText;
             
-            // Features zur Startseite hinzufügen
-            const featuresContainer = document.getElementById('featuresContainer');
+            // Lade Features
+            const featuresGrid = document.querySelector('.features-grid');
             SERVER_FEATURES.forEach((feature, index) => {
-                const featureCard = document.createElement('div');
-                featureCard.className = `feature-card animate delay-${(index % 4) + 1}`;
-                featureCard.innerHTML = `
+                const card = document.createElement('div');
+                card.className = `feature-card fade-in-element`;
+                card.style.transitionDelay = `${index * 0.1}s`;
+                card.innerHTML = `
                     <div class="feature-icon">
                         <i class="fas ${feature.icon}"></i>
                     </div>
                     <h3>${feature.title}</h3>
                     <p>${feature.description}</p>
                 `;
-                featuresContainer.appendChild(featureCard);
+                featuresGrid.appendChild(card);
             });
             
-            // Team-Mitglieder laden
+            // Lade Team
             const teamContainer = document.getElementById('teamContainer');
             TEAM_MITGLIEDER.forEach((mitglied, index) => {
-                const teamMember = document.createElement('div');
-                teamMember.className = 'team-member';
-                teamMember.innerHTML = `
+                const member = document.createElement('div');
+                member.className = 'team-member';
+                member.style.animationDelay = `${index * 0.05}s`;
+                member.innerHTML = `
                     <div class="team-member-icon">
                         <i class="fas fa-user"></i>
                     </div>
@@ -866,15 +1097,18 @@
                         <div class="team-member-rang">${mitglied.rang}</div>
                     </div>
                 `;
-                teamContainer.appendChild(teamMember);
+                teamContainer.appendChild(member);
             });
             
-            // Changelogs laden (neueste zuerst)
+            // Lade Changelogs (sortiert nach ID absteigend)
             const changelogsContainer = document.getElementById('changelogsContainer');
-            CHANGELOGS.forEach((changelog) => {
-                const changelogItem = document.createElement('div');
-                changelogItem.className = 'changelog-item';
-                changelogItem.innerHTML = `
+            const sortedChangelogs = [...CHANGELOGS].sort((a, b) => b.id - a.id);
+            sortedChangelogs.forEach((changelog, index) => {
+                const item = document.createElement('div');
+                item.className = 'changelog-item';
+                item.setAttribute('data-id', changelog.id);
+                item.style.animationDelay = `${index * 0.05}s`;
+                item.innerHTML = `
                     <div class="changelog-header">
                         <div class="changelog-title">${changelog.titel}</div>
                         <div class="changelog-date">${changelog.datum}</div>
@@ -883,20 +1117,13 @@
                         ${changelog.beschreibung}
                     </div>
                 `;
-                changelogsContainer.appendChild(changelogItem);
+                changelogsContainer.appendChild(item);
             });
             
-            // Externe Links verarbeiten
-            document.querySelectorAll('.external-link').forEach(link => {
-                const linkType = link.getAttribute('data-link');
-                if (EXTERNAL_LINKS[linkType]) {
-                    link.href = EXTERNAL_LINKS[linkType];
-                    link.target = '_blank';
-                    link.rel = 'noopener noreferrer';
-                }
-            });
+            // Lade Regelwerk
+            document.getElementById('regelwerkContainer').innerHTML = REGELWERK_HTML;
             
-            // Discord Button
+            // Discord Links setzen
             document.getElementById('discordBtn').href = DISCORD_INVITE_URL;
             document.getElementById('discordBtn').target = '_blank';
             document.getElementById('discordBtn').rel = 'noopener noreferrer';
@@ -905,95 +1132,124 @@
             document.getElementById('discordFooterBtn').target = '_blank';
             document.getElementById('discordFooterBtn').rel = 'noopener noreferrer';
             
-            // Animation on scroll
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
+            // Scroll-Animationen
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                        entry.target.classList.add('visible');
                     }
                 });
-            }, observerOptions);
-            
-            // Observe all elements with the 'animate' class
-            document.querySelectorAll('.animate').forEach(el => {
-                observer.observe(el);
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
             });
             
-            // Modal handling
-            const teamModal = document.getElementById('teamModal');
-            const changelogsModal = document.getElementById('changelogsModal');
-            const feedbackModal = document.getElementById('feedbackModal');
+            document.querySelectorAll('.fade-in-element').forEach(el => observer.observe(el));
             
-            const teamBtn = document.getElementById('teamBtn');
-            const teamFooterBtn = document.getElementById('teamFooterBtn');
-            const changelogsBtn = document.getElementById('changelogsBtn');
-            const changelogsFooterBtn = document.getElementById('changelogsFooterBtn');
-            const feedbackBtn = document.getElementById('feedbackBtn');
-            const feedbackFooterBtn = document.getElementById('feedbackFooterBtn');
+            // Header Scroll Effekt
+            window.addEventListener('scroll', () => {
+                const header = document.querySelector('header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
             
-            const closeTeamModal = document.getElementById('closeTeamModal');
-            const closeChangelogsModal = document.getElementById('closeChangelogsModal');
-            const closeFeedbackModal = document.getElementById('closeFeedbackModal');
+            // Modal Handling
+            const modals = {
+                team: document.getElementById('teamModal'),
+                changelogs: document.getElementById('changelogsModal'),
+                regelwerk: document.getElementById('regelwerkModal'),
+                feedback: document.getElementById('feedbackModal')
+            };
             
-            // Funktionen zum Öffnen und Schließen der Modals
-            function openModal(modal) {
-                modal.style.display = 'flex';
+            // Öffne Modal Funktion
+            function openModal(modalId) {
+                // Schließe alle anderen Modals
+                Object.values(modals).forEach(modal => {
+                    modal.classList.remove('active');
+                });
+                
+                // Öffne das gewünschte Modal
+                modals[modalId].classList.add('active');
                 document.body.style.overflow = 'hidden';
+                
+                // Setze URL Hash
+                window.history.pushState({}, '', `#${modalId}`);
             }
             
-            function closeModal(modal) {
-                modal.style.display = 'none';
+            // Schließe Modal Funktion
+            function closeModal(modalId) {
+                modals[modalId].classList.remove('active');
                 document.body.style.overflow = 'auto';
+                
+                // Entferne URL Hash
+                if (window.location.hash === `#${modalId}`) {
+                    window.history.pushState({}, '', window.location.pathname);
+                }
             }
             
-            // Event Listeners für Team Modal
-            teamBtn.addEventListener('click', () => openModal(teamModal));
-            teamFooterBtn.addEventListener('click', () => openModal(teamModal));
-            closeTeamModal.addEventListener('click', () => closeModal(teamModal));
-            teamModal.addEventListener('click', (e) => {
-                if (e.target === teamModal) closeModal(teamModal);
+            // Event Listener für Modal Links
+            document.querySelectorAll('[data-modal]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const modalId = link.getAttribute('data-modal');
+                    openModal(modalId);
+                    
+                    // Aktiviere Navigation
+                    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                    link.classList.add('active');
+                });
             });
             
-            // Event Listeners für Changelogs Modal
-            changelogsBtn.addEventListener('click', () => openModal(changelogsModal));
-            changelogsFooterBtn.addEventListener('click', () => openModal(changelogsModal));
-            closeChangelogsModal.addEventListener('click', () => closeModal(changelogsModal));
-            changelogsModal.addEventListener('click', (e) => {
-                if (e.target === changelogsModal) closeModal(changelogsModal);
+            // Event Listener für Close Buttons
+            document.querySelectorAll('[data-close]').forEach(button => {
+                button.addEventListener('click', () => {
+                    const modalId = button.getAttribute('data-close');
+                    closeModal(modalId);
+                });
             });
             
-            // Event Listeners für Feedback Modal
-            feedbackBtn.addEventListener('click', () => openModal(feedbackModal));
-            feedbackFooterBtn.addEventListener('click', () => openModal(feedbackModal));
-            closeFeedbackModal.addEventListener('click', () => closeModal(feedbackModal));
-            feedbackModal.addEventListener('click', (e) => {
-                if (e.target === feedbackModal) closeModal(feedbackModal);
-            });
-            
-            // Navigation aktive Klasse setzen
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', function() {
-                    if (!this.classList.contains('external-link')) {
-                        document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
-                        this.classList.add('active');
+            // Schließe Modal bei Klick außerhalb
+            Object.entries(modals).forEach(([id, modal]) => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        closeModal(id);
                     }
                 });
             });
             
-            // Feedback Form handling
+            // Schließe Modal mit Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    Object.keys(modals).forEach(id => {
+                        if (modals[id].classList.contains('active')) {
+                            closeModal(id);
+                        }
+                    });
+                }
+            });
+            
+            // Hash basierte Navigation
+            function handleHash() {
+                const hash = window.location.hash.replace('#', '');
+                if (modals[hash]) {
+                    openModal(hash);
+                }
+            }
+            
+            window.addEventListener('hashchange', handleHash);
+            handleHash(); // Initialer Check
+            
+            // Feedback System
             const feedbackForm = document.getElementById('feedbackForm');
             const submitBtn = document.getElementById('submitBtn');
             const cooldownNotice = document.getElementById('cooldownNotice');
             const formStatus = document.getElementById('formStatus');
             const cooldownTimer = document.getElementById('cooldownTimer');
             
-            // Check if user has cooldown from localStorage
+            // Cooldown System
             let cooldownEnd = localStorage.getItem('feedbackCooldown');
             let cooldownInterval;
             
@@ -1004,7 +1260,6 @@
                 const timeLeft = Math.max(0, cooldownEnd - now);
                 
                 if (timeLeft <= 0) {
-                    // Cooldown finished
                     localStorage.removeItem('feedbackCooldown');
                     cooldownNotice.style.display = 'none';
                     submitBtn.disabled = false;
@@ -1012,134 +1267,101 @@
                     return;
                 }
                 
-                // Update UI
                 const minutes = Math.floor(timeLeft / 60000);
                 const seconds = Math.floor((timeLeft % 60000) / 1000);
                 cooldownTimer.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-                cooldownNotice.style.display = 'block';
+                cooldownNotice.style.display = 'flex';
                 submitBtn.disabled = true;
             }
             
-            // Check cooldown on page load
             if (cooldownEnd) {
                 cooldownEnd = parseInt(cooldownEnd);
                 updateCooldown();
                 cooldownInterval = setInterval(updateCooldown, 1000);
             }
             
-            // Form submission
-            feedbackForm.addEventListener('submit', function(e) {
+            // Form Submission
+            feedbackForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
-                // Get form values
-                const username = document.getElementById('username').value || 'Anonym';
-                const message = document.getElementById('message').value;
+                const username = document.getElementById('username').value.trim() || 'Anonym';
+                const message = document.getElementById('message').value.trim();
                 
-                if (!message.trim()) {
+                if (!message) {
                     showStatus('Bitte gib eine Nachricht ein.', 'error');
                     return;
                 }
                 
-                // Disable button and show loading
+                // Button state
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Wird gesendet...';
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 10px;"></i> Wird gesendet...';
                 
-                // In a real implementation, you would send this to your Discord webhook
-                // Check if webhook URL is set
-                if (DISCORD_WEBHOOK_URL === 'DEINE_DISCORD_WEBHOOK_URL_HIER') {
-                    // Simulate success for demo
-                    setTimeout(() => {
-                        showStatus('Vielen Dank! Dein Feedback wurde erfolgreich gesendet.', 'success');
-                        feedbackForm.reset();
+                try {
+                    // Discord Webhook senden
+                    if (DISCORD_WEBHOOK_URL !== 'DEINE_DISCORD_WEBHOOK_URL_HIER') {
+                        const payload = {
+                            content: `**Neues Feedback von ${username}**\n\n${message}`,
+                            username: 'Gaming Life Feedback',
+                            avatar_url: 'https://cdn.discordapp.com/embed/avatars/0.png'
+                        };
                         
-                        // Set cooldown (5 minutes = 300000 milliseconds)
-                        cooldownEnd = Date.now() + 5 * 60 * 1000;
-                        localStorage.setItem('feedbackCooldown', cooldownEnd.toString());
-                        updateCooldown();
-                        cooldownInterval = setInterval(updateCooldown, 1000);
-                        
-                        // Reset button
-                        submitBtn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Feedback senden';
-                        submitBtn.disabled = false;
-                    }, 1500);
+                        await fetch(DISCORD_WEBHOOK_URL, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                    }
                     
-                    // Close modal after 3 seconds
+                    // Erfolg
+                    showStatus('Vielen Dank! Dein Feedback wurde erfolgreich gesendet.', 'success');
+                    feedbackForm.reset();
+                    
+                    // Cooldown setzen (5 Minuten)
+                    cooldownEnd = Date.now() + 5 * 60 * 1000;
+                    localStorage.setItem('feedbackCooldown', cooldownEnd.toString());
+                    updateCooldown();
+                    cooldownInterval = setInterval(updateCooldown, 1000);
+                    
+                    // Modal nach 3 Sekunden schließen
                     setTimeout(() => {
-                        closeModal(feedbackModal);
+                        closeModal('feedback');
+                        // Reset nach Modal schließen
+                        setTimeout(() => {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right: 10px;"></i> Feedback senden';
+                            formStatus.style.display = 'none';
+                        }, 300);
                     }, 3000);
                     
-                    return;
-                }
-                
-                // Create the payload for Discord
-                const payload = {
-                    content: `**Neues Feedback von ${username}**\n**Nachricht:**\n${message}`,
-                    username: 'Gaming Life Feedback',
-                    avatar_url: 'https://cdn.discordapp.com/attachments/.../gaming_life_logo.png'
-                };
-                
-                // Send to Discord webhook
-                fetch(DISCORD_WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(payload),
-                })
-                .then(response => {
-                    if (response.ok) {
-                        showStatus('Vielen Dank! Dein Feedback wurde erfolgreich gesendet.', 'success');
-                        feedbackForm.reset();
-                        
-                        // Set cooldown (5 minutes = 300000 milliseconds)
-                        cooldownEnd = Date.now() + 5 * 60 * 1000;
-                        localStorage.setItem('feedbackCooldown', cooldownEnd.toString());
-                        updateCooldown();
-                        cooldownInterval = setInterval(updateCooldown, 1000);
-                        
-                        // Close modal after 3 seconds
-                        setTimeout(() => {
-                            closeModal(feedbackModal);
-                        }, 3000);
-                    } else {
-                        throw new Error('Fehler beim Senden');
-                    }
-                })
-                .catch(error => {
-                    showStatus('Fehler: Dein Feedback konnte nicht gesendet werden. Bitte versuche es später erneut.', 'error');
+                } catch (error) {
+                    showStatus('Fehler beim Senden. Bitte versuche es später erneut.', 'error');
                     submitBtn.disabled = false;
-                })
-                .finally(() => {
-                    // Reset button
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Feedback senden';
-                });
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right: 10px;"></i> Feedback senden';
+                }
             });
             
             function showStatus(message, type) {
                 formStatus.textContent = message;
-                formStatus.className = 'form-status ' + type;
-                
-                // Hide status after 5 seconds
-                setTimeout(() => {
-                    formStatus.style.display = 'none';
-                }, 5000);
+                formStatus.className = `form-status ${type}`;
             }
             
-            // Smooth scrolling for anchor links
+            // Smooth Scrolling für interne Links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
+                if (!anchor.hasAttribute('data-modal')) {
+                    anchor.addEventListener('click', function(e) {
                         e.preventDefault();
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
+                        const targetId = this.getAttribute('href');
+                        if (targetId === '#') return;
+                        
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 100,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                }
             });
         });
     </script>
