@@ -76,14 +76,14 @@ const TEAM_MITGLIEDER = [
     // Junior Moderator
     { name: 'GL frd_le0n', rang: 'Junior Moderator' },
     { name: 'GL Simi', rang: 'Junior Moderator' },
-    
+    //
+    //
     // Test Moderator
     { name: 'GL Azadi', rang: 'Test Moderator' },
     { name: 'GL Gennaro', rang: 'Test Moderator' },
     { name: 'GL Marcbappe', rang: 'Test Moderator' },
     { name: 'GL Lulu', rang: 'Test Moderator' },
     { name: 'GL Leon🎄', rang: 'Test Moderator' },
-    { name: 'GL Ela', rang: 'Test Moderator' },
     { name: 'GL Jamie', rang: 'Test Moderator' },
     { name: 'GL Ruzo', rang: 'Test Moderator' }
 ];
