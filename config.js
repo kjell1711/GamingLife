@@ -86,34 +86,22 @@ const TEAM_MITGLIEDER = [
 // Changelog Einträge (ID muss immer höher sein für neue Einträge)
 const CHANGELOGS = [
     { 
-        id: 5,
-        titel: 'Neue Häuser hinzugefügt', 
-        beschreibung: '5 neue Häuser für realistischere Einsätze.',
-        datum: '15.10.2023'
-    },
-    { 
-        id: 4,
-        titel: 'Voice-Chat verbessert', 
-        beschreibung: 'Bessere Sprachqualität für klarere Kommunikation.',
-        datum: '10.10.2023'
-    },
-    { 
         id: 3,
-        titel: 'Neue Fahrzeuge', 
-        beschreibung: 'Feuerwehr-LKW, Polizei-Hubschrauber und Rettungswagen verfügbar.',
-        datum: '05.10.2023'
+        titel: 'Neue Website!', 
+        beschreibung: 'Alle Infos Jetzt direkt auf unserer Website!',
+        datum: '12.12.2025'
     },
     { 
         id: 2,
-        titel: 'Bugfixes', 
-        beschreibung: 'Behebung von Serverabstürzen.',
-        datum: '01.10.2023'
+        titel: 'Neustadt Update', 
+        beschreibung: 'neues cafe, Neues Restaurant, Security firma, Autohaus, Tankstelle Parkplätze.',
+        datum: '10.12.2025'
     },
     { 
         id: 1,
-        titel: 'Neue Fraktionen', 
-        beschreibung: 'THW-Fraktion hinzugefügt.',
-        datum: '25.09.2023'
+        titel: 'Anwalts Kanzlei', 
+        beschreibung: 'Neue Kanzlei, für einen richtigen Gerichtsprozess!',
+        datum: '09.11.2025'
     }
 ];
 
