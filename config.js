@@ -9,10 +9,9 @@ const DISCORD_WEBHOOK_URL = 'DEINE_DISCORD_WEBHOOK_URL_HIER';
 // Discord Server Einladungslink
 const DISCORD_INVITE_URL = 'https://discord.gg/DEIN_LINK_HIER';
 
-// Externe Links
+// Externe Links (falls benötigt)
 const EXTERNAL_LINKS = {
-    regelwerk: 'https://dein-link-zum-regelwerk.de',
-    datenschutz: 'https://dein-datenschutz-link.de'
+    // Hier können externe Links stehen, die nicht auf Modals führen
 };
 
 // Team Mitglieder Liste
@@ -25,7 +24,7 @@ const TEAM_MITGLIEDER = [
     { name: 'Sarah Supporter', rang: 'Supporter' }
 ];
 
-// Server Features für die Startseite
+// Server Features für die Startseite (nun 4 statt 6)
 const SERVER_FEATURES = [
     { 
         title: 'Sehr aktiver Server', 
@@ -46,29 +45,19 @@ const SERVER_FEATURES = [
         title: 'Aktive Fraktionen', 
         description: 'Realistische Einsatzkräfte mit klaren Hierarchien und speziellen Fahrzeugen.',
         icon: 'fa-sitemap'
-    },
-    { 
-        title: 'Regelmäßige Updates', 
-        description: 'Ständig neue Features, Fahrzeuge und Verbesserungen für das Spielerlebnis.',
-        icon: 'fa-sync-alt'
-    },
-    { 
-        title: 'Realistische RP-Erfahrung', 
-        description: 'Durchdachtes Rollenspiel-System mit klaren Regeln und Strukturen.',
-        icon: 'fa-user-check'
     }
 ];
 
-// Changelog Einträge (Neueste zuerst)
+// Changelog Einträge (mit ID, neueste zuerst)
 const CHANGELOGS = [
     { 
-        id: 1,
+        id: 5,
         titel: 'Neue Häuser hinzugefügt', 
         beschreibung: 'Es wurden 5 neue Häuser in die Stadt eingefügt, die für realistischere Einsätze sorgen.',
         datum: '15.10.2023'
     },
     { 
-        id: 2,
+        id: 4,
         titel: 'Voice-Chat verbessert', 
         beschreibung: 'Die Qualität des Voice-Chats wurde deutlich verbessert, sodass nun klarere Kommunikation möglich ist.',
         datum: '10.10.2023'
@@ -80,17 +69,40 @@ const CHANGELOGS = [
         datum: '05.10.2023'
     },
     { 
-        id: 4,
+        id: 2,
         titel: 'Bugfixes', 
         beschreibung: 'Behebung von verschiedenen Fehlern, die zu Serverabstürzen führen konnten.',
         datum: '01.10.2023'
     },
     { 
-        id: 5,
+        id: 1,
         titel: 'Neue Fraktionen', 
         beschreibung: 'Die THW-Fraktion wurde hinzugefügt mit speziellen Fahrzeugen und Ausrüstung.',
         datum: '25.09.2023'
     }
+];
+
+// Regelwerk (als HTML-String oder Array von Abschnitten)
+// Hier als Array von Abschnitten, jeder Abschnitt hat eine Überschrift und eine Liste von Regeln
+const REGELWERK = [
+    {
+        ueberschrift: 'Allgemeine Regeln',
+        regeln: [
+            'Respektvoller Umgang mit allen Spielern ist Pflicht.',
+            'Rassistische, sexistische oder anderweitig beleidigende Äußerungen sind verboten.',
+            'Das Verwenden von Cheats oder Exploits führt zu einem sofortigen Bann.',
+            'Spamming in Text- oder Voice-Chat ist nicht erlaubt.'
+        ]
+    },
+    {
+        ueberschrift: 'Rollenspiel-Regeln',
+        regeln: [
+            'Das Rollenspiel muss stets ernsthaft und realistisch sein.',
+            'Powergaming (unerlaubte Vorteilsbeschaffung) ist verboten.',
+            'Metagaming (Nutzung von Wissen, das die Figur nicht haben kann) ist untersagt.'
+        ]
+    },
+    // ... weitere Abschnitte
 ];
 
 // Farbkonfiguration
