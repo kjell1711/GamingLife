@@ -89,8 +89,8 @@ const REGELWERK_HTML = `
 <h3>📗 GamingLife RP – Ingame Regelwerk</h3>
 
 <h4>1. Grundprinzipien</h4>
+<p>Hardcore-RP bedeutet: Maximale Realistik, konsequentes Verhalten, permanente Charakterbindung.</p>
 <ul>
-    <li>Hardcore-RP bedeutet: Maximale Realistik, konsequentes Verhalten, permanente Charakterbindung.</li>
     <li>Dein Charakter ist eine eigenständige Person.</li>
     <li>Alles Ingame hat Konsequenzen.</li>
     <li>Realistisches Verhalten ist Pflicht.</li>
