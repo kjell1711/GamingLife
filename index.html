@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- CONFIG EINBINDEN -->
+    <script src="config.js"></script>
+    
     <style>
         /* ===== VARIABLEN ===== */
         :root {
@@ -44,6 +47,7 @@
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
+            background: radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.1) 0%, transparent 40%);
         }
 
         .container {
@@ -114,7 +118,6 @@
             text-align: center;
             padding: 120px 0 60px;
             position: relative;
-            background: radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.1) 0%, transparent 40%);
         }
 
         .hero h1 {
@@ -158,8 +161,8 @@
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.4);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.4);
         }
 
         /* ===== FEATURES SECTION ===== */
@@ -187,10 +190,11 @@
             transition: var(--transition);
             border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
+            transform: translateZ(0);
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px) scale(1.05);
             box-shadow: var(--shadow);
             border-color: rgba(138, 43, 226, 0.3);
         }
@@ -202,6 +206,11 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2);
         }
 
         .feature-card h3 {
@@ -226,10 +235,19 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .modal.active {
             display: flex;
+            opacity: 1;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal-content {
@@ -242,6 +260,12 @@
             padding: 40px;
             position: relative;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
         }
 
         .close-modal {
@@ -254,10 +278,17 @@
             font-size: 1.5rem;
             cursor: pointer;
             transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .close-modal:hover {
             color: var(--text-primary);
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         /* Team Modal */
@@ -275,6 +306,12 @@
             background-color: rgba(255, 255, 255, 0.03);
             border-radius: 10px;
             border-left: 4px solid var(--accent1);
+            transition: var(--transition);
+        }
+
+        .team-member:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            transform: translateX(5px);
         }
 
         .team-member-icon {
@@ -310,6 +347,12 @@
             border-radius: 10px;
             padding: 20px;
             border-left: 4px solid var(--accent2);
+            transition: var(--transition);
+        }
+
+        .changelog-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            transform: translateX(5px);
         }
 
         .changelog-header {
@@ -399,11 +442,13 @@
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
             font-size: 1rem;
+            transition: var(--transition);
         }
 
         .form-control:focus {
             outline: none;
             border-color: var(--accent1);
+            background-color: rgba(255, 255, 255, 0.08);
         }
 
         textarea.form-control {
@@ -426,7 +471,8 @@
         }
 
         .btn-submit:hover:not(:disabled) {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
         }
 
         .btn-submit:disabled {
@@ -442,6 +488,8 @@
             color: var(--warning);
             font-size: 0.9rem;
             display: none;
+            align-items: center;
+            gap: 10px;
         }
 
         .form-status {
@@ -450,16 +498,19 @@
             border-radius: 8px;
             text-align: center;
             display: none;
+            animation: fadeIn 0.3s ease;
         }
 
         .form-status.success {
             background-color: rgba(0, 204, 136, 0.1);
             color: var(--success);
+            display: block;
         }
 
         .form-status.error {
             background-color: rgba(255, 51, 102, 0.1);
             color: var(--error);
+            display: block;
         }
 
         /* ===== FOOTER ===== */
@@ -614,7 +665,7 @@
     <header>
         <div class="container">
             <nav>
-                <a href="#home" class="logo">Gaming Life</a>
+                <a href="#home" class="logo" id="siteName">Gaming Life</a>
                 <div class="nav-links">
                     <a href="#home" class="active">Start</a>
                     <a href="#" onclick="openModal('teamModal')">Unser Team</a>
@@ -629,9 +680,9 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
-            <h1 class="fade-in">Gaming Life</h1>
-            <p class="fade-in">Der beste Notruf-Emden-Server mit Voice-Chat</p>
-            <a href="#" onclick="openDiscord()" class="cta-button fade-in">
+            <h1 class="fade-in" id="mainTitle">Gaming Life</h1>
+            <p class="fade-in" id="siteTagline">Der beste Notruf-Emden-Server mit Voice-Chat</p>
+            <a href="#" onclick="openDiscord()" class="cta-button fade-in" id="discordButton">
                 <i class="fab fa-discord"></i> Discord beitreten
             </a>
         </div>
@@ -642,7 +693,7 @@
         <div class="container">
             <h2 class="section-title fade-in">Server Features</h2>
             <div class="features-grid" id="featuresContainer">
-                <!-- Wird durch JavaScript gefüllt -->
+                <!-- Wird aus config.js geladen -->
             </div>
         </div>
     </section>
@@ -658,7 +709,7 @@
                 Das engagierte Team hinter Gaming Life
             </p>
             <div class="team-list" id="teamContainer">
-                <!-- Wird durch JavaScript gefüllt -->
+                <!-- Wird aus config.js geladen -->
             </div>
         </div>
     </div>
@@ -674,7 +725,7 @@
                 Alle Updates und Änderungen
             </p>
             <div class="changelog-list" id="changelogsContainer">
-                <!-- Wird durch JavaScript gefüllt -->
+                <!-- Wird aus config.js geladen -->
             </div>
         </div>
     </div>
@@ -690,7 +741,7 @@
                 Bitte halte dich an diese Regeln
             </p>
             <div class="regelwerk-content" id="regelwerkContainer">
-                <!-- Wird durch JavaScript gefüllt -->
+                <!-- Wird aus config.js geladen -->
             </div>
         </div>
     </div>
@@ -705,7 +756,7 @@
             <p style="color: var(--text-secondary); margin: 10px 0 20px 0;">
                 Teile uns deine Meinung mit
             </p>
-            <form class="feedback-form" id="feedbackForm" onsubmit="submitFeedback(event)">
+            <form class="feedback-form" id="feedbackForm">
                 <div class="form-group">
                     <label for="username">Dein Name (optional)</label>
                     <input type="text" id="username" class="form-control" placeholder="Name">
@@ -730,8 +781,8 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Gaming Life</h3>
-                    <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                    <h3 id="footerTitle">Gaming Life</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;" id="footerDescription">
                         Der beste RP-Server auf Roblox Notruf Emden
                     </p>
                     <div class="social-links">
@@ -758,111 +809,66 @@
 
     <!-- JavaScript -->
     <script>
-        // ===== KONFIGURATION =====
-        const CONFIG = {
-            discordWebhook: 'DEINE_WEBHOOK_URL_HIER',
-            discordInvite: 'https://discord.gg/DEIN_LINK',
-            
-            teamMembers: [
-                { name: 'Max Mustermann', rang: 'Server-Inhaber' },
-                { name: 'Lisa Beispiel', rang: 'Head-Admin' },
-                { name: 'Tom Test', rang: 'Admin' },
-                { name: 'Anna Admin', rang: 'Admin' },
-                { name: 'Paul Moderator', rang: 'Moderator' },
-                { name: 'Sarah Supporter', rang: 'Supporter' }
-            ],
-            
-            features: [
-                { 
-                    title: 'Sehr aktiver Server', 
-                    description: 'Über 500 tägliche Spieler garantieren ständig actiongeladene Einsätze.',
-                    icon: 'fa-users'
-                },
-                { 
-                    title: 'Aktives Support-Team', 
-                    description: 'Unser Team ist 24/7 für dich da und sorgt für ein faires Spielerlebnis.',
-                    icon: 'fa-headset'
-                },
-                { 
-                    title: 'Voice-Chat Only', 
-                    description: 'Nur mit Sprachchat für maximalen Realismus und bessere Kommunikation.',
-                    icon: 'fa-microphone'
-                },
-                { 
-                    title: 'Aktive Fraktionen', 
-                    description: 'Realistische Einsatzkräfte mit speziellen Fahrzeugen und Hierarchien.',
-                    icon: 'fa-sitemap'
-                }
-            ],
-            
-            changelogs: [
-                { id: 5, titel: 'Neue Häuser hinzugefügt', beschreibung: '5 neue Häuser für realistischere Einsätze.', datum: '15.10.2023' },
-                { id: 4, titel: 'Voice-Chat verbessert', beschreibung: 'Bessere Sprachqualität für klarere Kommunikation.', datum: '10.10.2023' },
-                { id: 3, titel: 'Neue Fahrzeuge', beschreibung: 'Feuerwehr-LKW, Polizei-Hubschrauber und Rettungswagen verfügbar.', datum: '05.10.2023' },
-                { id: 2, titel: 'Bugfixes', beschreibung: 'Behebung von Serverabstürzen.', datum: '01.10.2023' },
-                { id: 1, titel: 'Neue Fraktionen', beschreibung: 'THW-Fraktion hinzugefügt.', datum: '25.09.2023' }
-            ],
-            
-            regelwerk: `
-                <h3>1. Allgemeine Regeln</h3>
-                <ul>
-                    <li>Respektvoller Umgang mit allen Spielern ist Pflicht</li>
-                    <li>Keine rassistischen, sexistischen oder beleidigenden Äußerungen</li>
-                    <li>Cheats oder Exploits führen zu sofortigem Bann</li>
-                    <li>Kein Spamming in Chat oder Voice</li>
-                </ul>
-                <h3>2. Rollenspiel-Regeln</h3>
-                <ul>
-                    <li>Ernsthaftes und realistisches Rollenspiel</li>
-                    <li>Kein Powergaming (unerlaubte Vorteilsbeschaffung)</li>
-                    <li>Kein Metagaming (Nutzung von Wissen das die Figur nicht haben kann)</li>
-                    <li>Konsistentes Charakterspiel</li>
-                </ul>
-                <h3>3. Voice-Chat Regeln</h3>
-                <ul>
-                    <li>Voice-Chat nur für Rollenspielzwecke</li>
-                    <li>Störgeräusche vermeiden (Push-to-Talk empfohlen)</li>
-                    <li>Keine Musik oder Audio-Abspielungen</li>
-                    <li>Respektvolle Kommunikation</li>
-                </ul>
-            `
-        };
+        // ===== KONFIGURATION AUS config.js LADEN =====
+        // Alle Daten kommen aus der config.js Datei!
 
         // ===== INITIALISIERUNG =====
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Seite wird geladen...');
             
-            // Features laden
+            // 1. Seiteninformationen setzen
+            setPageInfo();
+            
+            // 2. Features laden
             loadFeatures();
             
-            // Team laden
+            // 3. Team laden
             loadTeam();
             
-            // Changelogs laden
+            // 4. Changelogs laden
             loadChangelogs();
             
-            // Regelwerk laden
+            // 5. Regelwerk laden
             loadRegelwerk();
             
-            // Animationen
+            // 6. Discord Link setzen
+            setupDiscordLink();
+            
+            // 7. Animationen initialisieren
             initAnimations();
             
-            // Hash-based Navigation
+            // 8. Hash-based Navigation
             handleHashNavigation();
+            
+            // 9. Feedback Formular
+            setupFeedbackForm();
             
             console.log('Seite erfolgreich geladen!');
         });
 
         // ===== FUNKTIONEN =====
+        
+        // 1. Seiteninformationen setzen
+        function setPageInfo() {
+            if (typeof PAGE_CONFIG !== 'undefined') {
+                document.getElementById('siteName').textContent = PAGE_CONFIG.siteName;
+                document.getElementById('mainTitle').textContent = PAGE_CONFIG.siteName;
+                document.getElementById('siteTagline').textContent = PAGE_CONFIG.siteTagline;
+                document.getElementById('footerText').textContent = PAGE_CONFIG.footerText;
+                document.title = PAGE_CONFIG.siteName + ' - RP Server auf Roblox';
+            }
+        }
+        
+        // 2. Features laden
         function loadFeatures() {
             const container = document.getElementById('featuresContainer');
-            if (!container) {
-                console.error('Features Container nicht gefunden!');
+            if (!container || typeof SERVER_FEATURES === 'undefined') {
+                console.error('Features Container nicht gefunden oder keine Features definiert!');
                 return;
             }
             
             container.innerHTML = '';
-            CONFIG.features.forEach((feature, index) => {
+            SERVER_FEATURES.forEach((feature, index) => {
                 const card = document.createElement('div');
                 card.className = 'feature-card fade-in';
                 card.innerHTML = `
@@ -882,12 +888,16 @@
             });
         }
 
+        // 3. Team laden
         function loadTeam() {
             const container = document.getElementById('teamContainer');
-            if (!container) return;
+            if (!container || typeof TEAM_MITGLIEDER === 'undefined') {
+                console.error('Team Container nicht gefunden oder keine Team-Mitglieder definiert!');
+                return;
+            }
             
             container.innerHTML = '';
-            CONFIG.teamMembers.forEach(member => {
+            TEAM_MITGLIEDER.forEach(member => {
                 const div = document.createElement('div');
                 div.className = 'team-member';
                 div.innerHTML = `
@@ -903,13 +913,17 @@
             });
         }
 
+        // 4. Changelogs laden
         function loadChangelogs() {
             const container = document.getElementById('changelogsContainer');
-            if (!container) return;
+            if (!container || typeof CHANGELOGS === 'undefined') {
+                console.error('Changelogs Container nicht gefunden oder keine Changelogs definiert!');
+                return;
+            }
             
             container.innerHTML = '';
             // Sortieren nach ID (höchste zuerst)
-            const sorted = [...CONFIG.changelogs].sort((a, b) => b.id - a.id);
+            const sorted = [...CHANGELOGS].sort((a, b) => b.id - a.id);
             
             sorted.forEach(changelog => {
                 const div = document.createElement('div');
@@ -927,13 +941,39 @@
             });
         }
 
+        // 5. Regelwerk laden
         function loadRegelwerk() {
             const container = document.getElementById('regelwerkContainer');
-            if (!container) return;
+            if (!container || typeof REGELWERK_HTML === 'undefined') {
+                console.error('Regelwerk Container nicht gefunden oder kein Regelwerk definiert!');
+                return;
+            }
             
-            container.innerHTML = CONFIG.regelwerk;
+            container.innerHTML = REGELWERK_HTML;
         }
 
+        // 6. Discord Link setzen
+        function setupDiscordLink() {
+            if (typeof DISCORD_INVITE_URL !== 'undefined' && DISCORD_INVITE_URL !== 'https://discord.gg/DEIN_LINK_HIER') {
+                document.getElementById('discordButton').href = DISCORD_INVITE_URL;
+                document.getElementById('discordButton').onclick = function(e) {
+                    e.preventDefault();
+                    window.open(DISCORD_INVITE_URL, '_blank');
+                };
+                
+                // Footer Discord Link
+                const footerDiscord = document.querySelector('.social-links a[title="Discord"]');
+                if (footerDiscord) {
+                    footerDiscord.href = DISCORD_INVITE_URL;
+                    footerDiscord.onclick = function(e) {
+                        e.preventDefault();
+                        window.open(DISCORD_INVITE_URL, '_blank');
+                    };
+                }
+            }
+        }
+
+        // 7. Animationen initialisieren
         function initAnimations() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -953,8 +993,11 @@
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
                 
-                // URL Hash setzen
+                // URL Hash setzen für Deep Linking
                 window.location.hash = modalId;
+                
+                // Navigation aktualisieren
+                updateNavigation(modalId);
             }
         }
 
@@ -971,6 +1014,18 @@
             }
         }
 
+        function updateNavigation(modalId) {
+            // Aktive Navigation anpassen
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            const activeLink = document.querySelector(`.nav-links a[onclick*="${modalId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+
         function handleHashNavigation() {
             const hash = window.location.hash.replace('#', '');
             const validModals = ['teamModal', 'changelogsModal', 'regelwerkModal', 'feedbackModal'];
@@ -982,39 +1037,51 @@
 
         // ===== DISCORD FUNKTION =====
         function openDiscord() {
-            window.open(CONFIG.discordInvite, '_blank');
+            if (typeof DISCORD_INVITE_URL !== 'undefined' && DISCORD_INVITE_URL !== 'https://discord.gg/DEIN_LINK_HIER') {
+                window.open(DISCORD_INVITE_URL, '_blank');
+            } else {
+                alert('Bitte Discord Link in config.js konfigurieren!');
+            }
         }
 
         // ===== FEEDBACK FUNKTIONEN =====
-        let cooldownEnd = localStorage.getItem('feedbackCooldown');
-        let cooldownInterval;
+        function setupFeedbackForm() {
+            const form = document.getElementById('feedbackForm');
+            if (!form) return;
+            
+            form.addEventListener('submit', submitFeedback);
+            
+            // Cooldown System
+            let cooldownEnd = localStorage.getItem('feedbackCooldown');
+            let cooldownInterval;
 
-        function updateCooldown() {
-            if (!cooldownEnd) return;
-            
-            const now = Date.now();
-            const timeLeft = Math.max(0, cooldownEnd - now);
-            
-            if (timeLeft <= 0) {
-                localStorage.removeItem('feedbackCooldown');
-                document.getElementById('cooldownNotice').style.display = 'none';
-                document.getElementById('submitBtn').disabled = false;
-                clearInterval(cooldownInterval);
-                return;
+            function updateCooldown() {
+                if (!cooldownEnd) return;
+                
+                const now = Date.now();
+                const timeLeft = Math.max(0, cooldownEnd - now);
+                
+                if (timeLeft <= 0) {
+                    localStorage.removeItem('feedbackCooldown');
+                    document.getElementById('cooldownNotice').style.display = 'none';
+                    document.getElementById('submitBtn').disabled = false;
+                    clearInterval(cooldownInterval);
+                    return;
+                }
+                
+                const minutes = Math.floor(timeLeft / 60000);
+                const seconds = Math.floor((timeLeft % 60000) / 1000);
+                document.getElementById('cooldownTimer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                document.getElementById('cooldownNotice').style.display = 'flex';
+                document.getElementById('submitBtn').disabled = true;
             }
-            
-            const minutes = Math.floor(timeLeft / 60000);
-            const seconds = Math.floor((timeLeft % 60000) / 1000);
-            document.getElementById('cooldownTimer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-            document.getElementById('cooldownNotice').style.display = 'block';
-            document.getElementById('submitBtn').disabled = true;
-        }
 
-        // Cooldown checken
-        if (cooldownEnd) {
-            cooldownEnd = parseInt(cooldownEnd);
-            updateCooldown();
-            cooldownInterval = setInterval(updateCooldown, 1000);
+            // Cooldown checken
+            if (cooldownEnd) {
+                cooldownEnd = parseInt(cooldownEnd);
+                updateCooldown();
+                cooldownInterval = setInterval(updateCooldown, 1000);
+            }
         }
 
         function submitFeedback(event) {
@@ -1034,26 +1101,85 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Wird gesendet...';
             
-            // Simuliere API-Call (in der Praxis: fetch() zu deiner Webhook)
-            setTimeout(() => {
-                // Erfolgreich
-                showStatus('Vielen Dank! Dein Feedback wurde gesendet.', 'success');
-                document.getElementById('feedbackForm').reset();
-                
-                // Cooldown setzen (5 Minuten)
-                cooldownEnd = Date.now() + 5 * 60 * 1000;
-                localStorage.setItem('feedbackCooldown', cooldownEnd.toString());
-                updateCooldown();
-                cooldownInterval = setInterval(updateCooldown, 1000);
-                
-                // Button zurücksetzen
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Feedback senden';
-                
-                // Modal nach 2 Sekunden schließen
+            // Webhook senden (falls konfiguriert)
+            if (typeof DISCORD_WEBHOOK_URL !== 'undefined' && DISCORD_WEBHOOK_URL !== 'DEINE_DISCORD_WEBHOOK_URL_HIER') {
+                sendToDiscordWebhook(username, message);
+            } else {
+                // Fallback: Simuliere Erfolg
                 setTimeout(() => {
-                    closeModal('feedbackModal');
-                }, 2000);
-            }, 1500);
+                    handleFeedbackSuccess();
+                }, 1500);
+            }
+        }
+
+        function sendToDiscordWebhook(username, message) {
+            const payload = {
+                content: `**Neues Feedback von ${username}**\n\n${message}`,
+                username: 'Gaming Life Feedback',
+                avatar_url: 'https://cdn.discordapp.com/embed/avatars/0.png'
+            };
+            
+            fetch(DISCORD_WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (response.ok) {
+                    handleFeedbackSuccess();
+                } else {
+                    throw new Error('Fehler beim Senden');
+                }
+            })
+            .catch(error => {
+                showStatus('Fehler: Bitte versuche es später erneut.', 'error');
+                document.getElementById('submitBtn').disabled = false;
+                document.getElementById('submitBtn').innerHTML = '<i class="fas fa-paper-plane"></i> Feedback senden';
+            });
+        }
+
+        function handleFeedbackSuccess() {
+            showStatus('Vielen Dank! Dein Feedback wurde gesendet.', 'success');
+            document.getElementById('feedbackForm').reset();
+            
+            // Cooldown setzen (5 Minuten)
+            const cooldownEnd = Date.now() + 5 * 60 * 1000;
+            localStorage.setItem('feedbackCooldown', cooldownEnd.toString());
+            
+            // Cooldown UI aktualisieren
+            const cooldownInterval = setInterval(() => {
+                const now = Date.now();
+                const timeLeft = Math.max(0, cooldownEnd - now);
+                
+                if (timeLeft <= 0) {
+                    localStorage.removeItem('feedbackCooldown');
+                    document.getElementById('cooldownNotice').style.display = 'none';
+                    document.getElementById('submitBtn').disabled = false;
+                    clearInterval(cooldownInterval);
+                    return;
+                }
+                
+                const minutes = Math.floor(timeLeft / 60000);
+                const seconds = Math.floor((timeLeft % 60000) / 1000);
+                document.getElementById('cooldownTimer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                document.getElementById('cooldownNotice').style.display = 'flex';
+                document.getElementById('submitBtn').disabled = true;
+            }, 1000);
+            
+            // Button zurücksetzen
+            document.getElementById('submitBtn').innerHTML = '<i class="fas fa-paper-plane"></i> Feedback senden';
+            
+            // Modal nach 2 Sekunden schließen
+            setTimeout(() => {
+                closeModal('feedbackModal');
+                // Reset nach Modal schließen
+                setTimeout(() => {
+                    const formStatus = document.getElementById('formStatus');
+                    if (formStatus) {
+                        formStatus.style.display = 'none';
+                    }
+                }, 300);
+            }, 2000);
         }
 
         function showStatus(message, type) {
@@ -1061,10 +1187,6 @@
             formStatus.textContent = message;
             formStatus.className = `form-status ${type}`;
             formStatus.style.display = 'block';
-            
-            setTimeout(() => {
-                formStatus.style.display = 'none';
-            }, 5000);
         }
 
         // ===== GLOBAL EVENTS =====
@@ -1073,8 +1195,7 @@
             if (e.key === 'Escape') {
                 const modals = document.querySelectorAll('.modal.active');
                 modals.forEach(modal => {
-                    const modalId = modal.id;
-                    closeModal(modalId);
+                    closeModal(modal.id);
                 });
             }
         });
@@ -1090,6 +1211,20 @@
 
         // Hash Change Listener
         window.addEventListener('hashchange', handleHashNavigation);
+        
+        // Navigation Links aktualisieren
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            if (!link.onclick) {
+                link.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') === '#home') {
+                        e.preventDefault();
+                        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                        this.classList.add('active');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
