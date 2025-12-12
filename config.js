@@ -1,6 +1,5 @@
 // =========================
 // GAMING LIFE KONFIGURATION
-// Hier alle Einstellungen ändern
 // =========================
 
 // Discord Webhook URL für Feedback
@@ -8,6 +7,19 @@ const DISCORD_WEBHOOK_URL = 'DEINE_DISCORD_WEBHOOK_URL_HIER';
 
 // Discord Server Einladungslink
 const DISCORD_INVITE_URL = 'https://discord.gg/DEIN_LINK_HIER';
+
+// Externe Links
+const EXTERNAL_LINKS = {
+    regelwerk: '#regelwerk',
+    tutorials: '#',
+    team: '#team',
+    serverBeitreten: 'https://www.roblox.com/games/',
+    hilfe: '#',
+    kontakt: '#',
+    datenschutz: '#',
+    youtube: 'https://youtube.com',
+    robloxGruppe: 'https://www.roblox.com/groups/'
+};
 
 // Team Mitglieder Liste
 const TEAM_MITGLIEDER = [
@@ -19,7 +31,7 @@ const TEAM_MITGLIEDER = [
     { name: 'Sarah Supporter', rang: 'Supporter' }
 ];
 
-// Server Features für die Startseite (weniger, aber besser)
+// Server Features
 const SERVER_FEATURES = [
     { 
         title: 'Sehr aktiver Server', 
@@ -35,86 +47,81 @@ const SERVER_FEATURES = [
         title: 'Voice-Chat Only', 
         description: 'Nur mit Sprachchat für maximalen Realismus und bessere Kommunikation.',
         icon: 'fa-microphone'
+    },
+    { 
+        title: 'Aktive Fraktionen', 
+        description: 'Realistische Einsatzkräfte mit speziellen Fahrzeugen und Hierarchien.',
+        icon: 'fa-sitemap'
     }
 ];
 
-// Changelog Einträge (höchste ID zuerst)
+// Changelog Einträge (ID muss immer höher sein für neue Einträge)
 const CHANGELOGS = [
     { 
         id: 5,
         titel: 'Neue Häuser hinzugefügt', 
-        beschreibung: 'Es wurden 5 neue Häuser in die Stadt eingefügt, die für realistischere Einsätze sorgen.',
+        beschreibung: '5 neue Häuser für realistischere Einsätze.',
         datum: '15.10.2023'
     },
     { 
         id: 4,
         titel: 'Voice-Chat verbessert', 
-        beschreibung: 'Die Qualität des Voice-Chats wurde deutlich verbessert, sodass nun klarere Kommunikation möglich ist.',
+        beschreibung: 'Bessere Sprachqualität für klarere Kommunikation.',
         datum: '10.10.2023'
     },
     { 
         id: 3,
         titel: 'Neue Fahrzeuge', 
-        beschreibung: 'Drei neue Einsatzfahrzeuge sind jetzt verfügbar.',
+        beschreibung: 'Feuerwehr-LKW, Polizei-Hubschrauber und Rettungswagen verfügbar.',
         datum: '05.10.2023'
     },
     { 
         id: 2,
         titel: 'Bugfixes', 
-        beschreibung: 'Behebung von verschiedenen Fehlern, die zu Serverabstürzen führen konnten.',
+        beschreibung: 'Behebung von Serverabstürzen.',
         datum: '01.10.2023'
     },
     { 
         id: 1,
         titel: 'Neue Fraktionen', 
-        beschreibung: 'Die THW-Fraktion wurde hinzugefügt.',
+        beschreibung: 'THW-Fraktion hinzugefügt.',
         datum: '25.09.2023'
     }
 ];
 
-// Regelwerk HTML (kann direkt HTML enthalten)
+// Regelwerk (HTML-Format)
 const REGELWERK_HTML = `
-<h3>Allgemeine Regeln</h3>
+<h3>1. Allgemeine Regeln</h3>
 <ul>
     <li>Respektvoller Umgang mit allen Spielern ist Pflicht</li>
-    <li>Rassistische, sexistische oder anderweitig beleidigende Äußerungen sind verboten</li>
-    <li>Das Verwenden von Cheats oder Exploits führt zu einem sofortigen Bann</li>
-    <li>Spamming in Text- oder Voice-Chat ist nicht erlaubt</li>
+    <li>Keine rassistischen, sexistischen oder beleidigenden Äußerungen</li>
+    <li>Cheats oder Exploits führen zu sofortigem Bann</li>
+    <li>Kein Spamming in Chat oder Voice</li>
 </ul>
 
-<h3>Rollenspiel-Regeln</h3>
+<h3>2. Rollenspiel-Regeln</h3>
 <ul>
-    <li>Das Rollenspiel muss stets ernsthaft und realistisch sein</li>
-    <li>Powergaming (unerlaubte Vorteilsbeschaffung) ist verboten</li>
-    <li>Metagaming (Nutzung von Wissen, das die Figur nicht haben kann) ist untersagt</li>
-    <li>Charaktere müssen logisch und konsistent gespielt werden</li>
+    <li>Ernsthaftes und realistisches Rollenspiel</li>
+    <li>Kein Powergaming (unerlaubte Vorteilsbeschaffung)</li>
+    <li>Kein Metagaming (Nutzung von Wissen das die Figur nicht haben kann)</li>
+    <li>Konsistentes Charakterspiel</li>
 </ul>
 
-<h3>Voice-Chat Regeln</h3>
+<h3>3. Voice-Chat Regeln</h3>
 <ul>
-    <li>Der Voice-Chat ist für Rollenspielzwecke zu nutzen</li>
-    <li>Störgeräusche sind zu vermeiden (Push-to-Talk wird empfohlen)</li>
-    <li>Musik oder andere Audio-Abspielungen sind untersagt</li>
-    <li>Respektvolle Kommunikation ist jederzeit einzuhalten</li>
+    <li>Voice-Chat nur für Rollenspielzwecke</li>
+    <li>Störgeräusche vermeiden (Push-to-Talk empfohlen)</li>
+    <li>Keine Musik oder Audio-Abspielungen</li>
+    <li>Respektvolle Kommunikation</li>
 </ul>
 
-<h3>Fraktionen und Ränge</h3>
+<h3>4. Fraktionen und Ränge</h3>
 <ul>
-    <li>Ränge innerhalb von Fraktionen sind zu respektieren</li>
-    <li>Beförderungen erfolgen durch verdientes Spiel und Engagement</li>
-    <li>Jede Fraktion hat spezifische Regeln, die zusätzlich zu beachten sind</li>
+    <li>Ränge innerhalb von Fraktionen respektieren</li>
+    <li>Beförderungen durch verdientes Spiel</li>
+    <li>Fraktionsspezifische Regeln beachten</li>
 </ul>
 `;
-
-// Farbkonfiguration
-const COLORS = {
-    primary: '#0a0a0f',
-    secondary: '#12121a',
-    accent1: '#8a2be2',  // Lila
-    accent2: '#4169e1',  // Royal Blue
-    textPrimary: '#ffffff',
-    textSecondary: '#b0b0c0'
-};
 
 // Seiten-Konfiguration
 const PAGE_CONFIG = {
